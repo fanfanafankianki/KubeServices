@@ -7,7 +7,7 @@ spec:
   ports:
     - port: 8081
       targetPort: 8081
-      nodePort: 32000
+      nodePort: 30081
   selector:
     app: artifactory
 
@@ -31,9 +31,9 @@ spec:
           image: docker.bintray.io/jfrog/artifactory-oss:latest
           ports:
             - containerPort: 8081
-#          volumeMounts:
-#            - name: artifactory-data
-#              mountPath: /var/opt/jfrog/artifactory
-#      volumes:
-#        - name: artifactory-data
-#          emptyDir: {}
+          volumeMounts:
+            - name: artifactory-data
+              mountPath: /var/opt/jfrog/artifactory
+      volumes:
+        - name: artifactory-data
+          emptyDir: {}

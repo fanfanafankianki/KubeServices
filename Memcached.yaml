@@ -46,22 +46,36 @@ spec:
     app: phpMemcachedAdmin
 
 ---
+apiVersion: v1
+kind: Service
+metadata:
+  name: phpmemcachedadmin-service
+spec:
+  type: NodePort
+  ports:
+    - port: 8080
+      targetPort: 80
+      nodePort: 31080
+  selector:
+    app: phpmemcachedadmin
+
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: phpMemcachedAdmin
+  name: phpmemcachedadmin
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: phpMemcachedAdmin
+      app: phpmemcachedadmin
   template:
     metadata:
       labels:
-        app: phpMemcachedAdmin
+        app: phpmemcachedadmin
     spec:
       containers:
-        - name: phpMemcachedAdmin
+        - name: phpmemcachedadmin
           image: elamperti/docker-phpmemcachedadmin:latest
           ports:
             - containerPort: 80

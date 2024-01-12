@@ -31,3 +31,40 @@ spec:
           image: memcached:alpine
           ports:
             - containerPort: 11211
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: phpMemcachedAdmin-service
+spec:
+  type: NodePort
+  ports:
+    - port: 8080
+      targetPort: 80
+      nodePort: 31080
+  selector:
+    app: phpMemcachedAdmin
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: phpMemcachedAdmin
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: phpMemcachedAdmin
+  template:
+    metadata:
+      labels:
+        app: phpMemcachedAdmin
+    spec:
+      containers:
+        - name: phpMemcachedAdmin
+          image: elamperti/docker-phpmemcachedadmin:latest
+          ports:
+            - containerPort: 80
+          env:
+            - name: MEMCACHED_HOSTS
+              value: memcached-service:11211

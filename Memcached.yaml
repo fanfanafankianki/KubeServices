@@ -62,7 +62,7 @@ spec:
     spec:
       containers:
         - name: phpmemcachedadmin
-          image: elamperti/docker-phpmemcachedadmin:latest
+          image: jacksoncage/phpmemcachedadmin:latest
           ports:
             - containerPort: 80
           env:

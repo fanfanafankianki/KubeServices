@@ -35,20 +35,6 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: phpMemcachedAdmin-service
-spec:
-  type: NodePort
-  ports:
-    - port: 8080
-      targetPort: 80
-      nodePort: 31080
-  selector:
-    app: phpMemcachedAdmin
-
----
-apiVersion: v1
-kind: Service
-metadata:
   name: phpmemcachedadmin-service
 spec:
   type: NodePort

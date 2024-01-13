@@ -251,8 +251,10 @@ controller:
     - workflow-aggregator:596.v8c21c963d92d
     - git:5.1.0
     - configuration-as-code:1670.v564dc8b_982d0
+    - aws-java-sdk-minimal:1.12.633-430.vf9a_e567a_244f
+    - aws-java-sdk-ec2:1.12.633-430.vf9a_e567a_244f
     - aws-credentials:218.v1b_e9466ec5da_
-    - job-dsl:1.82 (Dodany Job DSL)
+#    - job-dsl:1.82 (Dodany Job DSL)
 #    - favorite:2.4.2 (Dodany Favorite)
 #    - github:1.37.1 (Dodany GitHub)
 #    - docker-workflow:1.26 (Dodany Docker Pipeline)

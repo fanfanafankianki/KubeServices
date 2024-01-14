@@ -254,8 +254,17 @@ controller:
     - aws-java-sdk-minimal:1.12.633-430.vf9a_e567a_244f
     - aws-java-sdk-ec2:1.12.633-430.vf9a_e567a_244f
     - aws-credentials:218.v1b_e9466ec5da_
-    - job-dsl:1.87
+    - ionicons-api:56.v1b_1c8c49374e
+    - workflow-api:1283.v99c10937efcb_
+    - scm-api:683.vb_16722fb_b_80b_
+    - workflow-step-api:639.v6eca_cd8c04a_a_
+    - workflow-support:865.v43e78cc44e0d
     - workflow-job:1385.vb_58b_86ea_fff1
+    - branch-api:2.1144.v1425d1c3d5a_7
+    - cloudbees-folder:6.858.v898218f3609d
+    - script-security:1313.v7a_6067dc7087
+    - structs:325.vcb_307d2a_2782
+    - job-dsl:1.87
 #    - favorite:2.4.2
 #    - github:1.37.1
 #    - docker-workflow:1.26 

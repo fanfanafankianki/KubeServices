@@ -17,5 +17,4 @@ pipeline {
         }
     }
 
-    description 'To jest przykładowe zadanie Jenkins'
 }

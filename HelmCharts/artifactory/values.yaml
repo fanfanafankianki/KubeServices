@@ -766,7 +766,7 @@ artifactory:
     loadBalancerSourceRanges: []
     annotations: {}
     ## If the type is NodePort you can set a fixed port
-    nodePort: 3203
+    nodePort: 32003
   statefulset:
     annotations: {}
   ## The following setting are to configure a dedicated Ingress object for Replicator service

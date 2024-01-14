@@ -1,20 +1,15 @@
-pipelineJob("First Job")  {
-    agent any // lub wybierz odpowiedni agent
-
-    triggers {
-        cron('H/15 * * * *')
-    }
-
-    options {
-        buildDiscarder(logRotator(numToKeepStr: '10', artifactNumToKeepStr: '5'))
-    }
-
-    stages {
-        stage('Przykładowy etap') {
-            steps {
-                sh 'echo "Hello, World!"'
-            }
+pipelineJob('job-dsl-plugin') {
+  definition {
+    cpsScm {
+      scm {
+        git {
+          remote {
+            url('https://github.com/jenkinsci/job-dsl-plugin.git')
+          }
+          branch('*/master')
         }
+      }
+      lightweight()
     }
-
+  }
 }

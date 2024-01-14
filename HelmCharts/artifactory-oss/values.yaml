@@ -42,8 +42,7 @@ artifactory:
     enabled: true
     tlsSecretName: ""
     service:
-      type: NodePort
-      nodePort: 30050
+      type: LoadBalancer
   ## Ingress
   ## See full list of supported Ingress options and documentation in artifactory chart: https://github.com/jfrog/charts/tree/master/stable/artifactory
   ingress:
@@ -54,7 +53,7 @@ artifactory:
   ## Configuration values for the PostgreSQL dependency sub-chart
   ## ref: https://github.com/bitnami/charts/blob/master/bitnami/postgresql/README.md
   postgresql:
-    enabled: false
+    enabled: true
   ## This key is required for upgrades to protect old PostgreSQL chart's breaking changes.
   databaseUpgradeReady: "yes"
   ## If NOT using the PostgreSQL in this chart (artifactory.postgresql.enabled=false),
@@ -67,7 +66,7 @@ artifactory:
     enabled: false
 ## Enable the PostgreSQL sub chart
 postgresql:
-  enabled: false
+  enabled: true
 router:
   image:
     tag: 7.81.0

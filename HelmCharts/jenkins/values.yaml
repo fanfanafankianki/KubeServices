@@ -879,11 +879,11 @@ additionalClouds: {}
 #    kubernetesURL: https://api.remote-cloud.com
 
 persistence:
-  enabled: false
+  enabled: true
   ## A manually managed Persistent Volume and Claim
   ## Requires persistence.enabled: true
   ## If defined, PVC must be created manually before volume will be bound
-  existingClaim:
+  existingClaim: "test-claim"
   ## jenkins data Persistent Volume Storage Class
   ## If defined, storageClassName: <storageClass>
   ## If set to "-", storageClassName: "", which disables dynamic provisioning

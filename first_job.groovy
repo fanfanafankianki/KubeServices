@@ -1,4 +1,4 @@
-freeStyleJob(displayName: "First Test Job") {
+jobDsl("First Test Job")  {
     agent any // lub wybierz odpowiedni agent
 
     triggers {

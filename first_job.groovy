@@ -1,4 +1,4 @@
-pipeline {
+pipelineJob("First Test Job")  {
     agent any // lub wybierz odpowiedni agent
 
     triggers {

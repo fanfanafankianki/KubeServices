@@ -1,11 +1,21 @@
-pipelineJob('example-job') {
-    description 'To jest przykładowe zadanie Jenkins'
+pipeline {
+    agent any // lub wybierz odpowiedni agent
 
     triggers {
         cron('H/15 * * * *')
     }
 
-    steps {
-        shell('echo "Hello, World!"')
+    options {
+        buildDiscarder(logRotator(numToKeepStr: '10', artifactNumToKeepStr: '5'))
     }
+
+    stages {
+        stage('Przykładowy etap') {
+            steps {
+                sh 'echo "Hello, World!"'
+            }
+        }
+    }
+
+    description 'To jest przykładowe zadanie Jenkins'
 }

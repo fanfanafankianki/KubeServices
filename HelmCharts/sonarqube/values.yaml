@@ -436,7 +436,7 @@ jdbcOverwrite:
 ## ref: https://github.com/bitnami/charts/blob/master/bitnami/postgresql/README.md
 postgresql:
   # Enable to deploy the bitnami PostgreSQL chart
-  enabled: false
+  enabled: true
   ## postgresql Chart global settings
   # global:
   #   imageRegistry: ''

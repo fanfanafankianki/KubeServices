@@ -1,4 +1,4 @@
-jobDsl("First Test Job")  {
+pipelineJob("First Job")  {
     agent any // lub wybierz odpowiedni agent
 
     triggers {

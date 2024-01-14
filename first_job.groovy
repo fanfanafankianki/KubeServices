@@ -1,4 +1,4 @@
-job('example-job') {
+pipelineJob('example-job') {
     description 'To jest przykładowe zadanie Jenkins'
 
     triggers {

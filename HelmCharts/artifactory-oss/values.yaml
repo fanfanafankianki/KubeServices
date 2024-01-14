@@ -53,7 +53,7 @@ artifactory:
   ## Configuration values for the PostgreSQL dependency sub-chart
   ## ref: https://github.com/bitnami/charts/blob/master/bitnami/postgresql/README.md
   postgresql:
-    enabled: true
+    enabled: false
   ## This key is required for upgrades to protect old PostgreSQL chart's breaking changes.
   databaseUpgradeReady: "yes"
   ## If NOT using the PostgreSQL in this chart (artifactory.postgresql.enabled=false),
@@ -66,7 +66,7 @@ artifactory:
     enabled: false
 ## Enable the PostgreSQL sub chart
 postgresql:
-  enabled: true
+  enabled: false
 router:
   image:
     tag: 7.81.0

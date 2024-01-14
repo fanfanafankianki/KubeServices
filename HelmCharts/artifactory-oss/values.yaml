@@ -43,7 +43,7 @@ artifactory:
     tlsSecretName: ""
     service:
       type: NodePort
-      nodePort: 32004
+      nodePort: 32005
   ## Ingress
   ## See full list of supported Ingress options and documentation in artifactory chart: https://github.com/jfrog/charts/tree/master/stable/artifactory
   ingress:

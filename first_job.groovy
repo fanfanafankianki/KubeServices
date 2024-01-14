@@ -1,4 +1,4 @@
-pipelineJob("First Test Job")  {
+freeStyleJob("First Test Job")  {
     agent any // lub wybierz odpowiedni agent
 
     triggers {

@@ -19,7 +19,7 @@ spec:
       serviceAccountName: nfs-client-provisioner
       containers:
       - name: nfs-client-provisioner
-        image: quay.io/external_storage/nfs-client-provisioner:latest
+        image: eu.gcr.io/k8s-artifacts-prod/sig-storage/nfs-subdir-external-provisioner:v4.0.2
         volumeMounts:
         - name: nfs-client-root
           mountPath: /persistentvolumes
@@ -27,11 +27,11 @@ spec:
         - name: PROVISIONER_NAME
           value: efs-storage
         - name: NFS_SERVER
-          value: 192.168.33.21
+          value: 172.31.41.122
         - name: NFS_PATH
           value: /
       volumes:
       - name: nfs-client-root
         nfs:
-          server: 192.168.33.21
+          server: 172.31.41.122
           path: /

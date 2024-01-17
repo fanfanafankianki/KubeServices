@@ -583,7 +583,16 @@ plugins: []
 ## Configure grafana datasources
 ## ref: http://docs.grafana.org/administration/provisioning/#datasources
 ##
-datasources: {}
+datasources:
+  datasources.yaml:
+    apiVersion: 1
+    datasources:
+    - name: Prometheus
+      type: prometheus
+      url: http://52.49.247.222:32000/  # Upewnij się, że URL jest poprawny dla twojego klastra
+      access: proxy
+      isDefault: true
+    deleteDatasources: []
 #  datasources.yaml:
 #    apiVersion: 1
 #    datasources:

@@ -749,7 +749,7 @@ serverFiles:
       - job_name: 'jenkins'
         metrics_path: '/prometheus'
         static_configs:
-        - targets: 3.250.167.70:8080/
+        - targets: ['3.250.167.70:8080']
 
       # A scrape configuration for running Prometheus on a Kubernetes cluster.
       # This uses separate scrape configs for cluster components (i.e. API server, node)

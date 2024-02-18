@@ -3,11 +3,11 @@ kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
   namespace: staging
-  name: test-claim
+  name: prometheus-claim
 spec:
   storageClassName: efs
   accessModes:
   - ReadWriteMany
   resources:
     requests:
-      storage: 10Mi
+      storage: 100Mi

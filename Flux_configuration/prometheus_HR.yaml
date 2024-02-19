@@ -14,7 +14,7 @@ spec:
       sourceRef:
         kind: GitRepository
         name: kubeservices-config  # Zmień na nazwę GitRepository w Flux, które wskazuje na twoje repozytorium
-        namespace: staging
+        namespace: flux-system
   values:
     prometheus:
       server:

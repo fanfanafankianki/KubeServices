@@ -7,13 +7,10 @@ spec:
   interval: 1m
   chart:
     spec:
-      # Ścieżka do charta w repozytorium Git.
-      # Warto zauważyć, że Flux wymaga referencji do źródła w postaci GitRepository lub HelmRepository.
-      # Tutaj zakładam, że masz skonfigurowane GitRepository w Flux, które wskazuje na twoje repozytorium i gałąź.
       chart: ./HelmCharts/prometheus_prod/prometheus
       sourceRef:
         kind: GitRepository
-        name: kubeservices-config  # Zmień na nazwę GitRepository w Flux, które wskazuje na twoje repozytorium
+        name: flux-system
         namespace: flux-system
   values:
     prometheus:

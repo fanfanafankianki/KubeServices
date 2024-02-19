@@ -10,5 +10,4 @@ spec:
   sourceRef:
     kind: GitRepository
     name: kubeservices-config
-  validation: client
 

@@ -18,6 +18,8 @@ spec:
         persistentVolume:
           existingClaim: "prometheus-claim"
         service:
+          annotations:
+            service.beta.kubernetes.io/aws-load-balancer-internal: "false"
           type: LoadBalancer
       serverFiles:
         prometheus.yml:

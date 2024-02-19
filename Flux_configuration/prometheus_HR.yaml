@@ -18,8 +18,7 @@ spec:
         persistentVolume:
           existingClaim: "prometheus-claim"
         service:
-          type: NodePort
-          nodePort: 32000
+          type: LoadBalancer
       serverFiles:
         prometheus.yml:
           scrape_configs:

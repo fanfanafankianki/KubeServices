@@ -16,7 +16,7 @@ spec:
     prometheus:
       server:
         persistentVolume:
-          existingClaim: "test-claim"
+          existingClaim: "prometheus-claim"
         service:
           type: NodePort
           nodePort: 32000

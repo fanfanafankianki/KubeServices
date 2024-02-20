@@ -19,6 +19,7 @@ spec:
           existingClaim: "prometheus-claim"
         service:
           annotations:
+            external-dns.alpha.kubernetes.io/hostname: app.powertrckr.com
             service.beta.kubernetes.io/aws-load-balancer-internal: "false"
           type: LoadBalancer
       serverFiles:

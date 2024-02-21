@@ -15,7 +15,7 @@ spec:
   values:
     prometheus:
       alertmanager:
-        enabled: true
+        enabled: false
       server:
         persistentVolume:
           existingClaim: "prometheus-claim"

@@ -14,8 +14,6 @@ spec:
         namespace: flux-system
   values:
     sonarqube:
-      postgresql:
-        enabled: false
       persistence:
         enabled: false
         existingClaim: "sonarqube-claim"

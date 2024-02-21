@@ -7,7 +7,7 @@ spec:
   interval: 1m
   chart:
     spec:
-      chart: ./HelmCharts/prometheus_prod/prometheus
+      chart: ./HelmCharts/prometheus_prod
       sourceRef:
         kind: GitRepository
         name: flux-system
@@ -19,7 +19,7 @@ spec:
           existingClaim: "prometheus-claim"
         service:
           annotations:
-            external-dns.alpha.kubernetes.io/hostname: app.powertrckr.com
+            external-dns.alpha.kubernetes.io/hostname: prometheus.powertrckr.com
             service.beta.kubernetes.io/aws-load-balancer-internal: "false"
           type: LoadBalancer
       serverFiles:

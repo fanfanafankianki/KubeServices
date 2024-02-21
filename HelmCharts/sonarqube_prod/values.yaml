@@ -5,3 +5,5 @@ sonarqube:
   persistence:
     enabled: false
     existingClaim: test-claim
+  postgresql:
+    enabled: false

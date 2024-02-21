@@ -13,7 +13,7 @@ spec:
         name: flux-system
         namespace: flux-system
   values:
-    postgresqladmin:
+    pgadmin4:
       persistence:
         enabled: false
       service:

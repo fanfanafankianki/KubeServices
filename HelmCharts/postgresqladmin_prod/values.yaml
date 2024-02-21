@@ -1,4 +1,4 @@
-postgresqladmin:
+pgadmin4:
   persistentVolume:
     enabled: false
     service:

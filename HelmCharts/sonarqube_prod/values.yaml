@@ -6,6 +6,8 @@ sonarqube:
     enabled: false
     existingClaim: test-claim
   postgresql:
+    enabled: true
     primary:
       persistence:
-        enabled: false
+        enabled: true
+        existingClaim: "sonarqube-claim"

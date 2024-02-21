@@ -3,5 +3,5 @@ sonarqube:
     type: NodePort
     nodePort: 32002
   persistence:
-    enabled: true
-    existingClaim: sonarqube-claim
+    enabled: false
+    existingClaim: test-claim

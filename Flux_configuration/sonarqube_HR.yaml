@@ -18,7 +18,7 @@ spec:
         # Enable to deploy the bitnami PostgreSQL chart
         enabled: false
       persistence:
-        enabled: true
+        enabled: false
         existingClaim: "sonarqube-claim"
       service:
         annotations:

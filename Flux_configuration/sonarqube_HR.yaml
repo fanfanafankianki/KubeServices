@@ -1,0 +1,32 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
+kind: HelmRelease
+metadata:
+  name: prometheus-custom
+  namespace: staging
+spec:
+  interval: 1m
+  chart:
+    spec:
+      chart: ./HelmCharts/prometheus_prod/prometheus
+      sourceRef:
+        kind: GitRepository
+        name: flux-system
+        namespace: flux-system
+  values:
+    prometheus:
+      server:
+        persistentVolume:
+          existingClaim: "prometheus-claim"
+        service:
+          annotations:
+            external-dns.alpha.kubernetes.io/hostname: app.powertrckr.com
+            service.beta.kubernetes.io/aws-load-balancer-internal: "false"
+          type: LoadBalancer
+      serverFiles:
+        prometheus.yml:
+          scrape_configs:
+            - job_name: 'jenkins'
+              metrics_path: '/prometheus'
+              static_configs:
+                - targets: ['3.250.167.70:8080']
+

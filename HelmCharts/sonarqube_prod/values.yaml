@@ -1,0 +1,7 @@
+sonarqube:
+  service:
+    type: NodePort
+    nodePort: 32002
+  persistence:
+    enabled: true
+    existingClaim: sonarqube-claim

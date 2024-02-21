@@ -1,0 +1,24 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
+kind: HelmRelease
+metadata:
+  name: sonarqube-custom
+  namespace: staging
+spec:
+  interval: 1m
+  chart:
+    spec:
+      chart: ./HelmCharts/sonarqube_prod
+      sourceRef:
+        kind: GitRepository
+        name: flux-system
+        namespace: flux-system
+  values:
+    sonarqube:
+      persistence:
+        enabled: true
+        existingClaim: "sonarqube-claim"
+      service:
+        annotations:
+          external-dns.alpha.kubernetes.io/hostname: sonarqube.powertrckr.com
+          service.beta.kubernetes.io/aws-load-balancer-internal: "false"
+        type: LoadBalancer

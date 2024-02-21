@@ -14,6 +14,9 @@ spec:
         namespace: flux-system
   values:
     sonarqube:
+      postgresql:
+        # Enable to deploy the bitnami PostgreSQL chart
+        enabled: false
       persistence:
         enabled: true
         existingClaim: "sonarqube-claim"

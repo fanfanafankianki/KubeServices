@@ -1,16 +1,9 @@
-artifactory-oss:
+artifactory:
   artifactory:
-    artifactory:
-      persistence:
-        mountPath: "/var/opt/jfrog/artifactory"
-        enabled: false
-    nginx:
-      persistence:
-        mountPath: "/var/opt/jfrog/artifactory"
-        enabled: false
-    postgresql:
+    persistence:
+      mountPath: "/var/opt/jfrog/artifactory"
       enabled: false
-      persistence:
-        enabled: false
+  nginx:
+    enabled: false
   postgresql:
     enabled: false

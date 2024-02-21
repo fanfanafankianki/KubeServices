@@ -2,20 +2,8 @@ jenkins:
   agent:
     namespace: staging
   controller:
-    type: NodePort
+    serviceType: NodePort
     nodePort: 32001
-    JCasC:
-      securityRealm: |-
-        local:
-          allowsSignup: false
-          enableCaptcha: false
-          users:
-          - id: "jgrzego"
-            name: "Jenkins Jgrzego Admin"
-            password: "jpass"
-          - id: "bagrzego"
-            name: "Jenkins Admin"
-            password: "bpass"
 
     installPlugins:
       - kubernetes:4029.v5712230ccb_f8
@@ -37,6 +25,6 @@ jenkins:
       - structs:325.vcb_307d2a_2782
       - job-dsl:1.82
 
-  persistence:
-    enabled: false
-    existingClaim: test-claim
+persistence:
+  enabled: false
+  existingClaim: test-claim

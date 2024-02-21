@@ -2,7 +2,7 @@ artifactory:
   artifactory:
     postgresql:
       enabled: false
-    artifactory:
+    nginx:
       persistence:
         mountPath: "/var/opt/jfrog/artifactory"
         enabled: false

@@ -7,6 +7,8 @@ jenkins:
     JCasC:
       securityRealm: |-
         local:
+          allowsSignup: false
+          enableCaptcha: false
           users:
           - id: "jgrzego"
             name: "Jenkins Jgrzego Admin"
@@ -14,6 +16,7 @@ jenkins:
           - id: "bagrzego"
             name: "Jenkins Admin"
             password: "bpass"
+        
     installPlugins:
       - kubernetes:4029.v5712230ccb_f8
       - workflow-aggregator:596.v8c21c963d92d
@@ -33,12 +36,6 @@ jenkins:
       - script-security:1313.v7a_6067dc7087
       - structs:325.vcb_307d2a_2782
       - job-dsl:1.82
-    #    - favorite:2.4.2
-    #    - github:1.37.1
-    #    - docker-workflow:1.26
-    #    - kubernetes-credentials:0.10.0
-    #    - kubernetes-credentials-provider:0.14.0
-    #    - kubernetes:1.30.2
 
   persistence:
     enabled: false

@@ -1,4 +1,4 @@
-artifactory:
+artifactory-oss:
   artifactory:
     artifactory:
       persistence:

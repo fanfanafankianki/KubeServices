@@ -1,23 +1,23 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
-  name: posgresqladmin-custom
+  name: postgresqladmin-custom
   namespace: staging
 spec:
   interval: 1m
   chart:
     spec:
-      chart: ./HelmCharts/posgresqladmin_prod
+      chart: ./HelmCharts/postgresqladmin_prod
       sourceRef:
         kind: GitRepository
         name: flux-system
         namespace: flux-system
   values:
-    posgresqladmin:
+    postgresqladmin:
       persistence:
         enabled: false
       service:
         annotations:
-          external-dns.alpha.kubernetes.io/hostname: posgresqladmin.powertrckr.com
+          external-dns.alpha.kubernetes.io/hostname: postgresqladmin.powertrckr.com
           service.beta.kubernetes.io/aws-load-balancer-internal: "false"
         type: LoadBalancer

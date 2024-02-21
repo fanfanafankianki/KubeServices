@@ -1,25 +1,25 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
-  name: posgresql-custom
+  name: postgresql-custom
   namespace: staging
 spec:
   interval: 1m
   chart:
     spec:
-      chart: ./HelmCharts/posgresql_prod
+      chart: ./HelmCharts/postgresql_prod
       sourceRef:
         kind: GitRepository
         name: flux-system
         namespace: flux-system
   values:
-    posgresql:
+    postgresql:
       primary:
         persistence:
           enabled: true
-          existingClaim: "posgresql-claim"
+          existingClaim: "postgresql-claim"
         service:
           annotations:
-            external-dns.alpha.kubernetes.io/hostname: posgresql.powertrckr.com
+            external-dns.alpha.kubernetes.io/hostname: postgresql.powertrckr.com
             service.beta.kubernetes.io/aws-load-balancer-internal: "false"
           type: LoadBalancer

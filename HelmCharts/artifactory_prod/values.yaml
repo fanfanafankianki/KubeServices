@@ -4,6 +4,9 @@ artifactory:
       enabled: false
   postgresql:
     enabled: false
+  persistence:
+    mountPath: "/var/opt/jfrog/artifactory"
+    enabled: false
     artifactory:
       persistence:
         mountPath: "/var/opt/jfrog/artifactory"

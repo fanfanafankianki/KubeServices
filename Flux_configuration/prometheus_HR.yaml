@@ -23,7 +23,7 @@ spec:
           annotations:
             external-dns.alpha.kubernetes.io/hostname: prometheus.powertrckr.com
             service.beta.kubernetes.io/aws-load-balancer-internal: "false"
-          type: LoadBalancer
+          type: ClusterIP
       serverFiles:
         prometheus.yml:
           scrape_configs:

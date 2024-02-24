@@ -22,4 +22,4 @@ spec:
           annotations:
             external-dns.alpha.kubernetes.io/hostname: postgresql.powertrckr.com
             service.beta.kubernetes.io/aws-load-balancer-internal: "false"
-          type: LoadBalancer
+          type: ClusterIP

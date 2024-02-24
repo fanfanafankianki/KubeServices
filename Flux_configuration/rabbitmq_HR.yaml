@@ -1,27 +1,27 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
-  name: sonarqube-custom
+  name: rabbitmq-custom
   namespace: staging
 spec:
   interval: 1m
   chart:
     spec:
-      chart: ./HelmCharts/sonarqube_prod
+      chart: ./HelmCharts/rabbitmq_prod
       sourceRef:
         kind: GitRepository
         name: flux-system
         namespace: flux-system
   values:
-    sonarqube:
-      postgresql:
-        enabled: false
-        primary:
-          persistence:
-            enabled: true
-            existingClaim: "sonarqube-claim"
+    rabbitmq:
       persistence:
         enabled: false
       service:
         type: NodePort
-        nodePort: 30011
+      nodePorts:
+        amqp: "30013"
+        amqpTls: "31014"
+        dist: "30015"
+        manager: "30016"
+        epmd: "30017"
+        metrics: "30018"

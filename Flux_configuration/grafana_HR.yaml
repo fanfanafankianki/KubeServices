@@ -18,8 +18,5 @@ spec:
         enabled: true
         existingClaim: "grafana-claim"
       service:
-        annotations:
-          external-dns.alpha.kubernetes.io/hostname: grafana.powertrckr.com
-          service.beta.kubernetes.io/aws-load-balancer-internal: "false"
         type: NodePort
         nodePort: 30006

@@ -16,8 +16,5 @@ spec:
     artifactory:
       artifactory:
         service:
-          annotations:
-            external-dns.alpha.kubernetes.io/hostname: artifactory.powertrckr.com
-            service.beta.kubernetes.io/aws-load-balancer-internal: "false"
           type: NodePort
           nodePort: 30005

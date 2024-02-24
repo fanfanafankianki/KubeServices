@@ -20,9 +20,6 @@ spec:
         persistentVolume:
           existingClaim: "prometheus-claim"
         service:
-          annotations:
-            external-dns.alpha.kubernetes.io/hostname: prometheus.powertrckr.com
-            service.beta.kubernetes.io/aws-load-balancer-internal: "false"
           type: NodePort
           nodePort: 30010
       serverFiles:

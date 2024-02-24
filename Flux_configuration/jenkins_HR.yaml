@@ -18,8 +18,5 @@ spec:
         enabled: true
         existingClaim: "jenkins-claim"
       controller:
-        serviceAnnotations:
-          external-dns.alpha.kubernetes.io/hostname: jenkins.powertrckr.com
-          service.beta.kubernetes.io/aws-load-balancer-internal: "false"
         serviceType: NodePort
         nodePort: 30007

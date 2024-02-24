@@ -15,7 +15,7 @@ spec:
   values:
     sonarqube:
       postgresql:
-        enabled: true
+        enabled: false
         primary:
           persistence:
             enabled: true

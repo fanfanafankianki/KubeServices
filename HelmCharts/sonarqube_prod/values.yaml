@@ -3,8 +3,8 @@ sonarqube:
     type: NodePort
     nodePort: 32002
   persistence:
-    enabled: false
-    existingClaim: test-claim
+    enabled: true
+    existingClaim: sonarqube-claim
   postgresql:
     enabled: true
     primary:

@@ -15,10 +15,10 @@ spec:
   values:
     sonarqube:
       postgresql:
-        enabled: false
+        enabled: true
         primary:
           persistence:
-            enabled: true
+            enabled: false
             existingClaim: "sonarqube-claim"
       persistence:
         enabled: false

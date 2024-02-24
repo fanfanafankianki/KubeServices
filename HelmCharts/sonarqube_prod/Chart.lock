@@ -1,6 +1,6 @@
 dependencies:
 - name: sonarqube
-  repository: https://SonarSource.github.io/helm-chart-sonarqube
-  version: 10.4.0+2288
-digest: sha256:95802da1b135cf8bfd58d4e3d1a131bd485585614e4a5da8ed78f2fb2c248f51
-generated: "2024-02-21T21:20:30.6556113+01:00"
+  repository: https://charts.bitnami.com/bitnami
+  version: 4.6.1
+digest: sha256:fb69235b58c4a78a4e0789053e268d801607af63dea76fc59578212f969373d2
+generated: "2024-02-24T23:32:32.635909+01:00"

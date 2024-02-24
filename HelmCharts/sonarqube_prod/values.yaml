@@ -4,7 +4,7 @@ sonarqube:
     nodePort: 32002
   persistence:
     enabled: true
-    existingClaim: sonarqube-claim
+    existingClaim: "sonarqube-claim"
   readinessProbe:
     enabled: false
   postgresql:

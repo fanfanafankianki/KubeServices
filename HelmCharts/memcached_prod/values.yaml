@@ -1,0 +1,4 @@
+memcached:
+  service:
+    type: NodePort
+    memcached: "31012"

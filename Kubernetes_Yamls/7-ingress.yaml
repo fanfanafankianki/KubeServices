@@ -1,0 +1,94 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: site-project-ingress
+  namespace: staging
+  annotations:
+    kubernetes.io/ingress.class: alb
+    alb.ingress.kubernetes.io/subnets: subnet-09b2d1e1275f7d002,subnet-0116f7740aa5a262c
+    alb.ingress.kubernetes.io/target-type: instance
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    external-dns.alpha.kubernetes.io/hostname: "powertrckr.com"
+    external-dns.alpha.kubernetes.io/ttl: "60"
+spec:
+  rules:
+    - host: artifactory.powertrckr.com
+      http:
+        paths:
+          - pathType: Prefix
+            path: /
+            backend:
+              service:
+                name: artifactory-custom
+                port:
+                  number: 8082
+    - host: grafana.powertrckr.com
+      http:
+        paths:
+          - pathType: Prefix
+            path: /
+            backend:
+              service:
+                name: grafana-custom
+                port:
+                  number: 80
+    - host: jenkins.powertrckr.com
+      http:
+        paths:
+          - pathType: Prefix
+            path: /
+            backend:
+              service:
+                name: jenkins-custom
+                port:
+                  number: 8080
+    - host: postgresql.powertrckr.com
+      http:
+        paths:
+          - pathType: Prefix
+            path: /
+            backend:
+              service:
+                name: postgresqladmin-custom-pgadmin4
+                port:
+                  number: 80
+    - host: prometheus.powertrckr.com
+      http:
+        paths:
+          - pathType: Prefix
+            path: /
+            backend:
+              service:
+                name: prometheus-custom-server
+                port:
+                  number: 80
+    - host: sonarqube.powertrckr.com
+      http:
+        paths:
+          - pathType: Prefix
+            path: /
+            backend:
+              service:
+                name: sonarqube-custom-sonarqube
+                port:
+                  number: 9000
+    - host: memcached.powertrckr.com
+      http:
+        paths:
+          - pathType: Prefix
+            path: /
+            backend:
+              service:
+                name: memcached-custom
+                port:
+                  number: 11211
+    - host: rabbitmq.powertrckr.com
+      http:
+        paths:
+          - pathType: Prefix
+            path: /
+            backend:
+              service:
+                name: rabbitmq-custom
+                port:
+                  number: 5672

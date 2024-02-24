@@ -21,4 +21,5 @@ spec:
         serviceAnnotations:
           external-dns.alpha.kubernetes.io/hostname: jenkins.powertrckr.com
           service.beta.kubernetes.io/aws-load-balancer-internal: "false"
-        serviceType: ClusterIP
+        serviceType: NodePort
+        nodePort: 30007

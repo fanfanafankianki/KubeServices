@@ -26,4 +26,5 @@ spec:
         annotations:
           external-dns.alpha.kubernetes.io/hostname: sonarqube.powertrckr.com
           service.beta.kubernetes.io/aws-load-balancer-internal: "false"
-        type: ClusterIP
+        type: NodePort
+        nodePort: 30011

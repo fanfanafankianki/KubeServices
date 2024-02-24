@@ -19,5 +19,6 @@ spec:
       service:
         annotations:
           external-dns.alpha.kubernetes.io/hostname: postgresqladmin.powertrckr.com
-          service.beta.kubernetes.io/aws-load-balancer-internal: "false"
-        type: ClusterIP
+            service.beta.kubernetes.io/aws-load-balancer-internal: "false"
+        type: NodePort
+        nodePort: 30009

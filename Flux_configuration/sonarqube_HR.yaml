@@ -25,5 +25,5 @@ spec:
       service:
         type: NodePort
         nodePorts:
-          http: "30011"
-          elastic: "30017"
+          http: 30011
+          elastic: 30018

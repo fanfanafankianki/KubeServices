@@ -46,7 +46,7 @@ spec:
                 name: jenkins-custom
                 port:
                   number: 8080
-    - host: postgresql.powertrckr.com
+    - host: postgresqladmin.powertrckr.com
       http:
         paths:
           - pathType: Prefix
@@ -56,6 +56,16 @@ spec:
                 name: postgresqladmin-custom-pgadmin4
                 port:
                   number: 80
+    - host: postgresql.powertrckr.com
+      http:
+        paths:
+          - pathType: Prefix
+            path: /
+            backend:
+              service:
+                name: postgresql-custom
+                port:
+                  number: 5432
     - host: prometheus.powertrckr.com
       http:
         paths:

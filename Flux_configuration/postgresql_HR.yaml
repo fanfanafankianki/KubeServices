@@ -21,3 +21,7 @@ spec:
         service:
           type: NodePort
           nodePort: 30008
+      auth:
+        username: bartek
+        password: bartek
+        database: postgresql

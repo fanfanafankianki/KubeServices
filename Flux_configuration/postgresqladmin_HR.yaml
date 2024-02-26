@@ -19,3 +19,6 @@ spec:
       service:
         type: NodePort
         nodePort: 30009
+    env:
+      email: bartek@gmail.com
+      password: bartek

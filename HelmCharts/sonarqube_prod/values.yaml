@@ -1,4 +1,7 @@
 sonarqube:
+  extraEnvVars:
+     - name: ALLOW_EMPTY_PASSWORD
+       value: "yes"
   service:
     type: NodePort
     nodePorts:

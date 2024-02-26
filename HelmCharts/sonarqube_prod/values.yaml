@@ -8,8 +8,8 @@ sonarqube:
     enabled: false
     existingClaim: "sonarqube-claim"
   postgresql:
-    enabled: true
+    enabled: false
     primary:
       persistence:
-        enabled: true
+        enabled: false
         existingClaim: "sonarqube-claim"

@@ -22,6 +22,8 @@ spec:
           type: NodePort
           nodePort: 30008
       auth:
-        username: bartek
-        password: bartek
-        database: postgresql
+        enablePostgresUser: true
+        postgresPassword: "bartek"
+        username: "bartek"
+        password: "bartek"
+        database: "postgresql"

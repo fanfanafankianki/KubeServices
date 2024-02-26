@@ -1,12 +1,12 @@
 sonarqube:
   service:
     type: NodePort
-    nodePort: 32002
+    nodePorts:
+      http: "30011"
+      elastic: "30017"
   persistence:
-    enabled: true
-    existingClaim: "sonarqube-claim"
-  readinessProbe:
     enabled: false
+    existingClaim: "sonarqube-claim"
   postgresql:
     enabled: true
     primary:

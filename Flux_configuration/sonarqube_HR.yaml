@@ -20,6 +20,13 @@ spec:
           persistence:
             enabled: false
             existingClaim: "sonarqube-claim"
+      externalDatabase:
+        host: "192.168.58.196"
+        user: bartek
+        password: "bartek"
+        existingSecret: ""
+        database: postgresql
+        port: 5432
       persistence:
         enabled: false
       service:

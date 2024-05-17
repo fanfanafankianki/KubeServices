@@ -13,31 +13,25 @@ spec:
         name: flux-system
         namespace: flux-system
   values:
-    sonarqube:
-      resources:
-        requests:
-          cpu: 2
-          memory: 1024Mi
-        limits:
-          cpu: 2
-          memory: 1024Mi
+    resources:
+      requests:
+        cpu: 2
+        memory: 1024Mi
+      limits:
+        cpu: 2
+        memory: 1024Mi
       postgresql:
         enabled: false
-        primary:
-          persistence:
-            enabled: false
-            existingClaim: "sonarqube-claim"
-      externalDatabase:
-        host: "192.168.58.196"
-        user: bartek
-        password: "bartek"
-        existingSecret: ""
-        database: postgresql
-        port: 5432
+        persistence:
+          enabled: false
+          existingClaim: "sonarqube-claim"
+      jdbcOverwrite:
+        enable: true
+        jdbcUrl: "jdbc:postgresql://10.103.127.193:5432/postgresql"
+        jdbcUsername: "bartek"
+        jdbcPassword: "bartek"
       persistence:
         enabled: false
       service:
         type: NodePort
-        nodePorts:
-          http: 30011
-          elastic: 30018
+        nodePort: 30011

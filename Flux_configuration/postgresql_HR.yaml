@@ -21,6 +21,10 @@ spec:
         service:
           type: NodePort
           nodePort: 30008
+      metrics:
+        enabled: true
+        containerPorts:
+          metrics: 9187
       auth:
         enablePostgresUser: true
         postgresPassword: "bartek"

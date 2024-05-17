@@ -20,18 +20,18 @@ spec:
       limits:
         cpu: 2
         memory: 1024Mi
-      postgresql:
-        enabled: false
-        persistence:
-          enabled: false
-          existingClaim: "sonarqube-claim"
-      jdbcOverwrite:
-        enable: true
-        jdbcUrl: "jdbc:postgresql://10.103.127.193:5432/postgresql"
-        jdbcUsername: "bartek"
-        jdbcPassword: "bartek"
+    postgresql:
+      enabled: false
       persistence:
         enabled: false
-      service:
-        type: NodePort
-        nodePort: 30011
+        existingClaim: "sonarqube-claim"
+    jdbcOverwrite:
+      enable: true
+      jdbcUrl: "jdbc:postgresql://10.103.127.193:5432/postgresql"
+      jdbcUsername: "bartek"
+      jdbcPassword: "bartek"
+    persistence:
+      enabled: false
+    service:
+      type: NodePort
+      nodePort: 30011

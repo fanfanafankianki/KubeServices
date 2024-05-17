@@ -20,3 +20,6 @@ spec:
       controller:
         serviceType: NodePort
         nodePort: 30007
+        prometheus:
+          enabled: true
+          scrapeEndpoint: /metrics

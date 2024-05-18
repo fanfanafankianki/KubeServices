@@ -13,15 +13,15 @@ spec:
         name: flux-system
         namespace: flux-system
   values:
-    resources:
-      requests:
-        cpu: 2
-        memory: 1024Mi
-      limits:
-        cpu: 2
-        memory: 1024Mi
-      startupProbe:
-        initialDelaySeconds: 200
+#    resources:
+#      requests:
+#        cpu: 2
+#        memory: 1024Mi
+#      limits:
+#        cpu: 2
+#        memory: 1024Mi
+    startupProbe:
+      initialDelaySeconds: 200
     postgresql:
       enabled: false
       persistence:

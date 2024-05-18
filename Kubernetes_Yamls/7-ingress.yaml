@@ -76,16 +76,16 @@ spec:
                 name: postgresql-custom
                 port:
                   number: 5432
-#    - host: postgresql-metrics.trainingnotes.fit
-#      http:
-#        paths:
-#          - pathType: Prefix
-#            path: /
-#            backend:
-#              service:
-#                name: postgresql-custom-metrics
-#                port:
-#                  number: 9187
+    - host: postgresql-metrics.trainingnotes.fit
+      http:
+        paths:
+          - pathType: Prefix
+            path: /
+            backend:
+              service:
+                name: postgresql-custom-metrics
+                port:
+                  number: 9187
     - host: prometheus.trainingnotes.fit
       http:
         paths:

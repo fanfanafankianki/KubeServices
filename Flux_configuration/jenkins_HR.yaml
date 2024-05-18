@@ -20,6 +20,9 @@ spec:
       controller:
         serviceType: NodePort
         nodePort: 30007
+        agentListenerNodePort: 31113
+        agentListenerServiceType: "NodePort"
+        agentListenerPort: 31114
         prometheus:
-          enabled: false
+          enabled: true
           scrapeEndpoint: /metrics

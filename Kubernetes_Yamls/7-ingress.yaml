@@ -46,6 +46,16 @@ spec:
                 name: jenkins-custom
                 port:
                   number: 8080
+#    - host: jenkins-metrics.trainingnotes.fit
+#      http:
+#        paths:
+#          - pathType: Prefix
+#            path: /
+#            backend:
+#              service:
+#                name: jenkins-custom-agent
+#                port:
+#                  number: 31114
     - host: postgresqladmin.trainingnotes.fit
       http:
         paths:
@@ -66,16 +76,16 @@ spec:
                 name: postgresql-custom
                 port:
                   number: 5432
-    - host: postgresql-metrics.trainingnotes.fit
-      http:
-        paths:
-          - pathType: Prefix
-            path: /
-            backend:
-              service:
-                name: postgresql-custom-metrics
-                port:
-                  number: 9187
+#    - host: postgresql-metrics.trainingnotes.fit
+#      http:
+#        paths:
+#          - pathType: Prefix
+#            path: /
+#            backend:
+#              service:
+#                name: postgresql-custom-metrics
+#                port:
+#                  number: 9187
     - host: prometheus.trainingnotes.fit
       http:
         paths:
@@ -106,16 +116,16 @@ spec:
                 name: memcached-custom
                 port:
                   number: 11211
-    - host: memcached-metrics.trainingnotes.fit
-      http:
-        paths:
-          - pathType: Prefix
-            path: /
-            backend:
-              service:
-                name: memcached-custom-metrics
-                port:
-                  number: 9150
+#    - host: memcached-metrics.trainingnotes.fit
+#      http:
+#        paths:
+#          - pathType: Prefix
+#            path: /
+#            backend:
+#              service:
+#                name: memcached-custom-metrics
+#                port:
+#                  number: 9150
     - host: rabbitmq.trainingnotes.fit
       http:
         paths:
@@ -126,13 +136,13 @@ spec:
                 name: rabbitmq-custom
                 port:
                   number: 30013
-    - host: rabbitmq-metrics.trainingnotes.fit
-      http:
-        paths:
-          - pathType: Prefix
-            path: /
-            backend:
-              service:
-                name: rabbitmq-custom
-                port:
-                  number: 30018
+#    - host: rabbitmq-metrics.trainingnotes.fit
+#      http:
+#        paths:
+#          - pathType: Prefix
+#            path: /
+#            backend:
+#              service:
+#                name: rabbitmq-custom
+#                port:
+#                  number: 30018

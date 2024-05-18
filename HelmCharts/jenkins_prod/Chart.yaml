@@ -27,3 +27,6 @@ dependencies:
   - name: jenkins
     version: "5.0.14"
     repository: "https://charts.jenkins.io"
+  - name: prometheus-operator-crds
+    version: "11.0.0"
+    repository: "https://prometheus-community.github.io/helm-charts"

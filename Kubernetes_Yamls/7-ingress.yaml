@@ -136,13 +136,13 @@ spec:
                 name: rabbitmq-custom
                 port:
                   number: 30013
-#    - host: rabbitmq-metrics.trainingnotes.fit
-#      http:
-#        paths:
-#          - pathType: Prefix
-#            path: /
-#            backend:
-#              service:
-#                name: rabbitmq-custom
-#                port:
-#                  number: 30018
+    - host: rabbitmq-metrics.trainingnotes.fit
+      http:
+        paths:
+          - pathType: Prefix
+            path: /
+            backend:
+              service:
+                name: rabbitmq-custom
+                port:
+                  number: 30018

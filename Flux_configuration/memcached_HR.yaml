@@ -19,5 +19,8 @@ spec:
         memcached: "31012"
       metrics:
         enabled: true
+        service:
+          type: NodePort
+          nodePort: 31116
         containerPorts:
           metrics: 9150

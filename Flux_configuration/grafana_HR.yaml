@@ -14,6 +14,33 @@ spec:
         namespace: flux-system
   values:
     grafana:
+      persistentVolume:
+        enabled: true
+      adminUser: admin
+      adminPassword: admin
+      dashboards:
+        default:
+          postgre-dashboard:
+            file: dashboards/postgresql_dashboard.json
+      dashboardProviders:
+        dashboardproviders.yaml:
+          apiVersion: 1
+          providers:
+          - name: 'default'
+            orgId: 1
+            folder: ''
+            type: file
+            disableDeletion: false
+            editable: true
+            options:
+              path: /var/lib/grafana/dashboards/default
+      datasources:
+        datasources.yaml:
+          apiVersion: 1
+          datasources:
+            - name: Prometheus
+              type: prometheus
+              url: "http://prometheus.trainingnotes.fit"
       persistence:
         enabled: true
         existingClaim: "grafana-claim"

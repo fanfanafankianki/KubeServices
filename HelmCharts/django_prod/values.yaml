@@ -1,14 +1,18 @@
 deploy:
   replicas: 1
   image:
-    name:  <image-name>
-    tag: <image-tag>
-  imagePullPolicy: IfNotPresent
+    name: fanfanafankianki/website-django-app
+    tag: latest
+  imagePullPolicy: Always
   port: 80
-  containerName: <container-name>
+  containerName: website-django-app-container
 service:
   type: NodePort
   port: 8000
   targetPort: 8000
   nodePort: 31009
   name: traffic
+ingress:
+  enabled: false
+autoscaling:
+  enabled: false

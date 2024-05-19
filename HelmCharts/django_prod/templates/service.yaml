@@ -9,7 +9,6 @@ spec:
     - name: {{ .name }}
       targetPort: {{ .targetPort }}
       port: {{ .port }}
-      {{- include "serviceType" $ | indent 6 }}
   selector:
     app: {{ $.Release.Name }}
     {{- end }}

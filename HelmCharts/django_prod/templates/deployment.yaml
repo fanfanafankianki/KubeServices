@@ -1,0 +1,47 @@
+{{- with .Values.deploy }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: {{ $.Release.Name }}-deploy
+spec:
+    replicas: {{ .replicas }}
+    selector:
+        matchLabels:
+            app: {{ $.Release.Name }}
+    {{- if .strategy.custom }}
+    strategy: 
+   {{- include "strategy" . | indent 6}}
+    {{- end }}
+    template:
+      metadata:
+        labels:
+          app: {{ $.Release.Name }}
+      spec:
+       {{- include "imagePullSecrets" . | indent 8 }}
+        containers:
+        - image: {{ .image.name }}:{{ .image.tag }}
+          name: {{ .containerName }}
+          imagePullPolicy: {{ .imagePullPolicy }}
+          ports:
+          - containerPort: {{ .port }}
+          env:
+          {{- range .env }}
+          - name: {{ .name }}
+            value: {{ .value | quote }}
+          {{- end }}
+{{ end }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Release.Name }}-service
+spec:
+  {{- with .Values.service }}
+  type: {{ default "ClusterIP" .type }}
+  ports:
+    - name: {{ .name }}
+      targetPort: {{ .targetPort }}
+      port: {{ .port }}
+      {{- include "serviceType" $ | indent 6 }}
+  selector:
+    app: {{ $.Release.Name }}
+    {{- end }}

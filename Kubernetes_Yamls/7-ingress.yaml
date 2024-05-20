@@ -23,7 +23,7 @@ spec:
             path: /
             backend:
               service:
-                name: angular-nginx
+                name: angular-nginx-custom
                 port:
                   number: 80
     - host: django.trainingnotes.fit
@@ -33,7 +33,7 @@ spec:
             path: /
             backend:
               service:
-                name: django-nginx
+                name: django-nginx-custom
                 port:
                   number: 80
     - host: artifactory.trainingnotes.fit

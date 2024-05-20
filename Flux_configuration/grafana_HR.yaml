@@ -30,6 +30,8 @@ spec:
             file: dashboards/prometheus_dashboard.json
           jenkins_dashboard:
             file: dashboards/jenkins_dashboard.json
+          sonarqube_dashboard:
+            file: dashboards/sonarqube_dashboard.json
           memcached_dashboard:
             file: dashboards/memcached_dashboard.json
           rabbitmq_dashboard:

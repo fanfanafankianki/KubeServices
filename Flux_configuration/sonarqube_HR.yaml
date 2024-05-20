@@ -29,7 +29,7 @@ spec:
         existingClaim: "sonarqube-claim"
     jdbcOverwrite:
       enable: true
-      jdbcUrl: "jdbc:postgresql://10.103.127.193:5432/postgresql"
+      jdbcUrl: "jdbc:postgresql://postgresql-custom.staging.svc.cluster.local:5432/postgresql"
       jdbcUsername: "bartek"
       jdbcPassword: "bartek"
     persistence:

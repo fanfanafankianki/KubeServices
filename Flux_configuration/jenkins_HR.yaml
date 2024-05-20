@@ -23,6 +23,8 @@ spec:
         agentListenerNodePort: 31113
         agentListenerServiceType: "NodePort"
         agentListenerPort: 31114
-        prometheus:
-          enabled: true
-          scrapeEndpoint: /metrics
+        admin:
+          username: "admin"
+          password: "password"
+        installPlugins:
+          - prometheus:763.vf8c26b_a_34b_d6

@@ -230,11 +230,11 @@ podSecurityContext:
 ##
 containerSecurityContext:
   enabled: true
-  runAsUser: 1001
-  runAsNonRoot: true
-  privileged: false
+  runAsUser: 0
+  runAsNonRoot: false
+  privileged: true
   readOnlyRootFilesystem: false
-  allowPrivilegeEscalation: false
+  allowPrivilegeEscalation: true
   capabilities:
     drop: ["ALL"]
   seccompProfile:
@@ -244,7 +244,7 @@ containerSecurityContext:
 ## @param containerPorts.https Sets https port inside NGINX container
 ##
 containerPorts:
-  http: 8080
+  http: 80
   https: ""
 ## @param extraContainerPorts Array of additional container ports for the Nginx container
 ## e.g:
@@ -362,10 +362,17 @@ autoscaling:
   targetMemory: ""
 ## @param extraVolumes Array to add extra volumes
 ##
-extraVolumes: []
+extraVolumes:
+- name: angular-nginx-conf
+  configMap:
+    name: angular-nginx-conf
 ## @param extraVolumeMounts Array to add extra mount
 ##
-extraVolumeMounts: []
+extraVolumeMounts:
+- name: angular-nginx-conf
+  mountPath: /opt/bitnami/nginx/conf/nginx.conf
+  subPath: nginx.conf
+  readOnly: true
 ## Pods Service Account
 ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-service-account/
 ##

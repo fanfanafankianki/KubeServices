@@ -363,13 +363,13 @@ autoscaling:
 ## @param extraVolumes Array to add extra volumes
 ##
 extraVolumes:
-- name: nginx-conf
+- name: django-nginx-conf
   configMap:
-    name: nginx-conf
+    name: django-nginx-conf
 ## @param extraVolumeMounts Array to add extra mount
 ##
 extraVolumeMounts:
-- name: nginx-conf
+- name: django-nginx-conf
   mountPath: /opt/bitnami/nginx/conf/nginx.conf
   subPath: nginx.conf
   readOnly: true

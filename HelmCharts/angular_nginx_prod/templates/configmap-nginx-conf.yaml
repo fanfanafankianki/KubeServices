@@ -3,7 +3,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   labels:
-    app: django-nginx
+    app: angular-nginx
   name: {{ .Release.Name }}-nginx-conf
   namespace: {{ include "common.names.namespace" . | quote }}
 data:

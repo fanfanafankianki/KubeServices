@@ -16,6 +16,26 @@ metadata:
     external-dns.alpha.kubernetes.io/ttl: "60"
 spec:
   rules:
+    - host: trainingnotes.fit
+      http:
+        paths:
+          - pathType: Prefix
+            path: /
+            backend:
+              service:
+                name: angular-nginx
+                port:
+                  number: 80
+    - host: django.trainingnotes.fit
+      http:
+        paths:
+          - pathType: Prefix
+            path: /
+            backend:
+              service:
+                name: django-nginx
+                port:
+                  number: 80
     - host: artifactory.trainingnotes.fit
       http:
         paths:

@@ -25,6 +25,18 @@ spec:
       serverFiles:
         prometheus.yml:
           scrape_configs:
+            - job_name: 'angular-nginx'
+              metrics_path: '/metrics'
+              static_configs:
+                - targets: ['trainingnotes.fit']
+            - job_name: 'django-nginx'
+              metrics_path: '/metrics'
+              static_configs:
+                - targets: ['django.trainingnotes.fit']
+            - job_name: 'prometheus'
+              metrics_path: '/metrics'
+              static_configs:
+                - targets: ['prometheus.trainingnotes.fit']
             - job_name: 'jenkins'
               metrics_path: '/metrics'
               static_configs:
@@ -45,3 +57,7 @@ spec:
               metrics_path: '/metrics'
               static_configs:
                 - targets: ['rabbitmq-metrics.trainingnotes.fit']
+            - job_name: 'sonarqube'
+              metrics_path: '/metrics'
+              static_configs:
+                - targets: ['sonarqube.trainingnotes.fit']

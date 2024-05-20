@@ -32,11 +32,11 @@ spec:
       readOnlyRootFilesystem: false
       allowPrivilegeEscalation: true
     extraVolumes:
-    - name: angular-nginx-conf
+    - name: angular-nginx-custom-nginx-conf
       configMap:
-        name: angular-nginx-conf
+        name: angular-nginx-custom-nginx-conf
     extraVolumeMounts:
-    - name: angular-nginx-conf
+    - name: angular-nginx-custom-nginx-conf
       mountPath: /opt/bitnami/nginx/conf/nginx.conf
       subPath: nginx.conf
       readOnly: true

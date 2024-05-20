@@ -32,11 +32,11 @@ spec:
       readOnlyRootFilesystem: false
       allowPrivilegeEscalation: true
     extraVolumes:
-    - name: django-nginx-conf
+    - name: django-nginx-custom-nginx-conf
       configMap:
-        name: django-nginx-conf
+        name: django-nginx-custom-nginx-conf
     extraVolumeMounts:
-    - name: django-nginx-conf
+    - name: django-nginx-custom-nginx-conf
       mountPath: /opt/bitnami/nginx/conf/nginx.conf
       subPath: nginx.conf
       readOnly: true

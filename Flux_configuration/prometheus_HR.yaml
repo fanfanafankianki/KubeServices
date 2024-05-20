@@ -70,7 +70,7 @@ spec:
             - job_name: 'sonarqube2'
               metrics_path: '/api/monitoring/metrics'
               static_configs:
-                - targets: ['sonarqube-custom-sonarqube-monitoring.staging.svc.cluster.local:9000']
-              basic_auth:
-                username: 'sonarqube'
-                password: 'define_it'
+                - targets: ['sonarqube.trainingnotes.fit']
+              authorization:
+                type: X-Sonar-Passcode
+                credentials: 'define_it'

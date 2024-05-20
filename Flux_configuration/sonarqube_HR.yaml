@@ -13,6 +13,9 @@ spec:
         name: flux-system
         namespace: flux-system
   values:
+    prometheusMonitoring:
+      podMonitor:
+        enabled: true
 #    resources:
 #      requests:
 #        cpu: 2

@@ -72,15 +72,15 @@ diagnosticMode:
 ## @param image.debug Set to true if you would like to see extra information on logs
 ##
 image:
+  repository: fanfanafankianki/website-django-app
+  tag: latest
   registry: docker.io
-  repository: bitnami/nginx
-  tag: 1.25.3-debian-11-r4
   digest: ""
   ## Specify a imagePullPolicy
   ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
   ## ref: https://kubernetes.io/docs/user-guide/images/#pre-pulling-images
   ##
-  pullPolicy: IfNotPresent
+  pullPolicy: Always
   ## Optionally specify an array of imagePullSecrets.
   ## Secrets must be manually created in the namespace.
   ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
@@ -100,7 +100,7 @@ hostAliases: []
 ## @param command Override default container command (useful when using custom images)
 ## @param args Override default container args (useful when using custom images)
 ##
-command: []
+command: ["/bin/sh", "-c", "nginx && nginx -s reload && gunicorn --bind 0.0.0.0:8000 GymWebsite.wsgi:application"]
 args: []
 ## @param extraEnvVars Extra environment variables to be set on NGINX containers
 ## E.g:
@@ -230,11 +230,11 @@ podSecurityContext:
 ##
 containerSecurityContext:
   enabled: true
-  runAsUser: 1001
-  runAsNonRoot: true
-  privileged: false
+  runAsUser: 0
+  runAsNonRoot: false
+  privileged: true
   readOnlyRootFilesystem: false
-  allowPrivilegeEscalation: false
+  allowPrivilegeEscalation: true
   capabilities:
     drop: ["ALL"]
   seccompProfile:
@@ -316,7 +316,7 @@ startupProbe:
 ## @param livenessProbe.successThreshold Success threshold for livenessProbe
 ##
 livenessProbe:
-  enabled: true
+  enabled: false
   initialDelaySeconds: 30
   timeoutSeconds: 5
   periodSeconds: 10
@@ -332,7 +332,7 @@ livenessProbe:
 ## @param readinessProbe.successThreshold Success threshold for readinessProbe
 ##
 readinessProbe:
-  enabled: true
+  enabled: false
   initialDelaySeconds: 5
   timeoutSeconds: 3
   periodSeconds: 5
@@ -362,10 +362,17 @@ autoscaling:
   targetMemory: ""
 ## @param extraVolumes Array to add extra volumes
 ##
-extraVolumes: []
+extraVolumes:
+- name: nginx-conf
+  configMap:
+    name: nginx-conf
 ## @param extraVolumeMounts Array to add extra mount
 ##
-extraVolumeMounts: []
+extraVolumeMounts:
+- name: nginx-conf
+  mountPath: /opt/bitnami/nginx/conf/nginx.conf
+  subPath: nginx.conf
+  readOnly: true
 ## Pods Service Account
 ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-service-account/
 ##
@@ -556,15 +563,15 @@ service:
   ## ref: https://kubernetes.io/docs/concepts/services-networking/service/#type-nodeport
   ##
   nodePorts:
-    http: "31008"
-    https: "31009"
+    http: "31010"
+    https: "31011"
   ## @param service.targetPort [object] Target port reference value for the Loadbalancer service types can be specified explicitly.
   ## Listeners for the Loadbalancer can be custom mapped to the http or https service.
   ## Example: Mapping the https listener to targetPort http [http: https]
   ##
   targetPort:
-    http: http
-    https: https
+    http: 80
+    https: 443
   ## @param service.clusterIP NGINX service Cluster IP
   ## e.g.:
   ## clusterIP: None
@@ -791,7 +798,7 @@ healthIngress:
 metrics:
   ## @param metrics.enabled Start a Prometheus exporter sidecar container
   ##
-  enabled: false
+  enabled: true
   ## Bitnami NGINX Prometheus Exporter image
   ## ref: https://hub.docker.com/r/bitnami/nginx-exporter/tags/
   ## @param metrics.image.registry [default: REGISTRY_NAME] NGINX Prometheus exporter image registry

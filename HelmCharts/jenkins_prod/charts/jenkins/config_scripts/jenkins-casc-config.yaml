@@ -1,0 +1,68 @@
+jenkins:
+  systemMessage: "Welcome to Jenkins configured with JCasC!"
+  numExecutors: 5
+  mode: NORMAL
+  scmCheckoutRetryCount: 2
+
+  clouds:
+    - kubernetes:
+        name: "kubernetes"
+        serverUrl: "https://kubernetes.default.svc.cluster.local"
+        skipTlsVerify: true
+        namespace: "jenkins"
+        jenkinsUrl: "http://jenkins:8080"
+        jenkinsTunnel: "jenkins-agent:50000"
+        credentialsId: "k8s-credentials"
+        containerCapStr: "10"
+        templates:
+          - name: "default"
+            label: "k8s-agent"
+            containers:
+              - name: "jnlp"
+                image: "jenkins/inbound-agent:4.3-4"
+                args: "${computer.jnlpmac} ${computer.name}"
+              - name: "docker"
+                image: "docker:latest"
+                command: "cat"
+                ttyEnabled: true
+                volumeMounts:
+                  - name: "docker-sock"
+                    mountPath: "/var/run/docker.sock"
+            volumes:
+              - name: "docker-sock"
+                hostPath:
+                  path: "/var/run/docker.sock"
+
+  credentials:
+    system:
+      domainCredentials:
+        - credentials:
+            - usernamePassword:
+                scope: GLOBAL
+                id: "dockerhub-credentials"
+                username: "your-dockerhub-username"
+                password: "your-dockerhub-password"
+                description: "DockerHub credentials"
+
+  securityRealm:
+    local:
+      allowsSignup: false
+      users:
+        - id: "admin"
+          password: "admin"
+          fullName: "Administrator"
+
+  authorizationStrategy:
+    loggedInUsersCanDoAnything:
+      allowAnonymousRead: false
+
+  tools:
+    jdk:
+      installations:
+        - name: "OpenJDK 11"
+          home: "/usr/lib/jvm/java-11-openjdk"
+
+unclassified:
+  location:
+    adminAddress: "admin@jenkins.io"
+    url: "http://jenkins:8080/"

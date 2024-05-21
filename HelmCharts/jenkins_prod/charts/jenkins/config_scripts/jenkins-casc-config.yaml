@@ -39,20 +39,20 @@ jenkins:
                   id: 524cd9b170b8fbab8776abf9f16c71dacdff11335471721b0aa2253534fa86bd
                   containers:
                   - name: "jnlp"
-                        alwaysPullImage: false
-                        args: "^${computer.jnlpmac} ^${computer.name}"
-                        envVars:
+                    alwaysPullImage: false
+                    args: "^${computer.jnlpmac} ^${computer.name}"
+                    envVars:
                           - envVar:
-                                  key: "JENKINS_URL"
-                                  value: "http://release-name-jenkins.default.svc.cluster.local:8080/"
-                        image: "jenkins/inbound-agent:3206.vb_15dcf73f6a_9-3"
-                        privileged: "false"
-                        resourceLimitCpu: 512m
-                        resourceLimitMemory: 512Mi
-                        resourceRequestCpu: 512m
-                        resourceRequestMemory: 512Mi
-                        ttyEnabled: false
-                        workingDir: /home/jenkins/agent
+                              key: "JENKINS_URL"
+                              value: "http://release-name-jenkins.default.svc.cluster.local:8080/"
+                    image: "jenkins/inbound-agent:3206.vb_15dcf73f6a_9-3"
+                    privileged: "false"
+                    resourceLimitCpu: 512m
+                    resourceLimitMemory: 512Mi
+                    resourceRequestCpu: 512m
+                    resourceRequestMemory: 512Mi
+                    ttyEnabled: false
+                    workingDir: /home/jenkins/agent
                   idleMinutes: 0
                   instanceCap: 2147483647
                   label: "release-name-jenkins-agent "

@@ -59,6 +59,13 @@ jenkins:
                 resourceRequestMemory: "512Mi"
                 ttyEnabled: false
                 workingDir: /home/jenkins/agent
+              - name: "docker"
+                image: "docker:latest"
+                command: "cat"
+                ttyEnabled: true
+                volumeMounts:
+                  - name: "docker-sock"
+                    mountPath: "/var/run/docker.sock"
             idleMinutes: 0
             instanceCap: 2147483647
             label: "custom-jenkins-agent"

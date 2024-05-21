@@ -1,6 +1,6 @@
 jenkins:
   systemMessage: "Welcome to Jenkins configured with JCasC!"
-  numExecutors: 5
+  numExecutors: 1
   mode: NORMAL
   scmCheckoutRetryCount: 2
 

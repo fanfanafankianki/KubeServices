@@ -8,13 +8,13 @@
 
 ## All values are under the 'artifactory' sub chart.
 artifactory:
+  global:
+    masterKey: FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
   database:
-    allowNonPostgresql: false
-    type: postgresql
-    driver: org.postgresql.Driver
-    url: jdbc:postgresql://postgresql-custom.staging.svc.cluster.local:5432/postgresql
-    user: bartek
-    password: bartek
+    allowNonPostgresql: true
+    type: derby
+    driver: org.apache.derby.jdbc.EmbeddedDriver
+    url: jdbc:derby:${artifactory.home}/data/derby;create=true
   ## Artifactory
   ## See full list of supported Artifactory options and documentation in artifactory chart: https://github.com/jfrog/charts/tree/master/stable/artifactory
   artifactory:

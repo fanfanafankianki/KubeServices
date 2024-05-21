@@ -18,6 +18,14 @@ spec:
         enabled: true
         existingClaim: "jenkins-claim"
       controller:
+        JCasC:
+          defaultConfig: false
+          configScripts:
+            jenkins-casc: |
+              {{ .Files.Get "config_scripts/jenkins-casc-config.yaml" }}
+        initScripts:
+          myInitScript: |-
+            {{ (.Files.Get "init_scripts/init.groovy") | indent 4 }}
         serviceType: NodePort
         nodePort: 30007
         agentListenerNodePort: 31113
@@ -31,3 +39,8 @@ spec:
           - git:5.2.2
           - job-dsl:1.87
           - workflow-aggregator:596.v8c21c963d92d
+          - configuration-as-code:1807.v0175eda_00a_20
+          - kubernetes:4230.vceef11cb_ca_37
+          - docker-plugin:1.6.1
+          - docker-workflow:572.v950f58993843
+          - artifactory:4.0.6

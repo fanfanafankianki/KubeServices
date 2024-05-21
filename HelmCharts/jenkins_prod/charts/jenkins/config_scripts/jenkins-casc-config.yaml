@@ -64,8 +64,9 @@ jenkins:
                 command: "cat"
                 ttyEnabled: true
                 envVars:
-                  - key: "DOCKER_SOCK_PATH"
-                    value: "/var/run/docker.sock"
+                  - envVar:
+                      key: "DOCKER_SOCK_PATH"
+                      value: "/var/run/docker.sock"
             volumes:
               - hostPath:
                   path: "/var/run/docker.sock"

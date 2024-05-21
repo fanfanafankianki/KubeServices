@@ -51,7 +51,7 @@ spec:
             - job_name: 'postgresql'
               metrics_path: '/metrics'
               static_configs:
-                - targets: ['postgresql-metrics.trainingnotes.fit']
+                - targets: ['postgresql-custom-metrics.staging.svc.cluster.local:9187']
             - job_name: 'memcached'
               metrics_path: '/metrics'
               static_configs:

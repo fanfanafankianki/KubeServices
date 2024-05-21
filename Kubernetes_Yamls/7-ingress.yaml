@@ -66,16 +66,6 @@ spec:
                 name: jenkins-custom
                 port:
                   number: 8080
-#    - host: jenkins-metrics.trainingnotes.fit
-#      http:
-#        paths:
-#          - pathType: Prefix
-#            path: /
-#            backend:
-#              service:
-#                name: jenkins-custom-agent
-#                port:
-#                  number: 31114
     - host: postgresqladmin.trainingnotes.fit
       http:
         paths:
@@ -96,16 +86,6 @@ spec:
                 name: postgresql-custom
                 port:
                   number: 5432
-    - host: postgresql-metrics.trainingnotes.fit
-      http:
-        paths:
-          - pathType: Prefix
-            path: /
-            backend:
-              service:
-                name: postgresql-custom-metrics
-                port:
-                  number: 9187
     - host: prometheus.trainingnotes.fit
       http:
         paths:

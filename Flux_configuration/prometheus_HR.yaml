@@ -66,10 +66,3 @@ spec:
                 - targets: ['sonarqube.trainingnotes.fit']
               authorization:
                 credentials: 'define_it'
-            - job_name: 'sonarqube2'
-              metrics_path: '/api/monitoring/metrics'
-              static_configs:
-                - targets: ['sonarqube.trainingnotes.fit']
-              authorization:
-                type: X-Sonar-Passcode
-                credentials: 'define_it'

@@ -64,9 +64,8 @@ spec:
               metrics_path: '/api/monitoring/metrics'
               static_configs:
                 - targets: ['sonarqube.trainingnotes.fit']
-              basic_auth:
-                username: 'sonarqube'
-                password: 'define_it'
+              authorization:
+                credentials: 'define_it'
             - job_name: 'sonarqube2'
               metrics_path: '/api/monitoring/metrics'
               static_configs:

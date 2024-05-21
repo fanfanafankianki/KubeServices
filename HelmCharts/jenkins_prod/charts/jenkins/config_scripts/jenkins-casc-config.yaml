@@ -3,18 +3,24 @@ jenkins:
   numExecutors: 1
   mode: NORMAL
   scmCheckoutRetryCount: 2
-
-  securityRealm:
-    local:
-      allowsSignup: false
-      users:
-        - id: "admin"
-          password: "admin"
-          fullName: "Administrator"
-
   authorizationStrategy:
     loggedInUsersCanDoAnything:
       allowAnonymousRead: false
+  securityRealm:
+    local:
+      allowsSignup: false
+      enableCaptcha: false
+      users:
+      - id: "${chart-admin-username}"
+        name: "Jenkins Admin"
+        password: "${chart-admin-password}"
+  disableRememberMe: false
+  mode: NORMAL
+  numExecutors: 0
+  labelString: ""
+  projectNamingStrategy: "standard"
+  markupFormatter:
+    plainText
   clouds:
     - kubernetes:
         containerCapStr: "10"

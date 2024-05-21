@@ -32,7 +32,7 @@ jenkins:
           credentialsId: ""
           podLabels:
           - key: "jenkins/release-name-jenkins-agent"
-                value: "true"
+            value: "true"
           templates:
                 - name: "default"
                   namespace: "default"

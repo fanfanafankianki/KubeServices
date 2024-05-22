@@ -506,7 +506,7 @@ artifactory:
   #customVolumeMounts: ""
   customVolumeMounts: |
     - name: artifactory-config-import
-      mountPath: "/opt/jfrog/artifactory/var/etc/artifactory/artifactory.config.import.yml"
+      mountPath: "/opt/jfrog/artifactory/var/etc/artifactory"
       subPath: artifactory.config.import.yml
   #  - name: custom-script
   #    mountPath: "/scripts/script.sh"

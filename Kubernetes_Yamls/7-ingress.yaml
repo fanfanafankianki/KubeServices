@@ -36,16 +36,16 @@ spec:
                 name: django-nginx-custom
                 port:
                   number: 80
-    - host: nexus.trainingnotes.fit
+    - host: artifactory.trainingnotes.fit
       http:
         paths:
           - pathType: Prefix
             path: /
             backend:
               service:
-                name: nexus-custom
+                name: artifactory-custom
                 port:
-                  number: 30190
+                  number: 8082
     - host: grafana.trainingnotes.fit
       http:
         paths:

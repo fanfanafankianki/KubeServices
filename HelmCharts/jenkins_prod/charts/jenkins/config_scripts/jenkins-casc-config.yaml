@@ -27,13 +27,13 @@ jenkins:
         defaultsProviderTemplate: ""
         connectTimeout: "5"
         readTimeout: "15"
-        jenkinsUrl: "http://custom-jenkins.default.svc.cluster.local:8080"
-        jenkinsTunnel: "custom-jenkins-agent.default.svc.cluster.local:50000"
+        jenkinsUrl: "http://jenkins-custom.staging.svc.cluster.local:8080"
+        jenkinsTunnel: "jenkins-custom-agent.staging.svc.cluster.local:31114"
         maxRequestsPerHostStr: "32"
-        retentionTimeout: "5"
+          retentionTimeout: "5"
         waitForPodSec: "600"
         name: "kubernetes"
-        namespace: "default"
+        namespace: "staging"
         serverUrl: "https://kubernetes.default"
         credentialsId: ""
         podLabels:
@@ -41,8 +41,8 @@ jenkins:
             value: "true"
         templates:
           - name: "default"
-            namespace: "default"
-            id: 524cd9b170b8fbab8776abf9f16c71dacdff11335471721b0aa2253534fa86bd
+            namespace: "staging"
+            id: 7c034934d4404594ab8d090ee9b17d462b49f6a70f9e65a1054273da13cd8332
             containers:
               - name: "jnlp"
                 alwaysPullImage: false
@@ -50,7 +50,7 @@ jenkins:
                 envVars:
                   - envVar:
                       key: "JENKINS_URL"
-                      value: "http://custom-jenkins.default.svc.cluster.local:8080/"
+                      value: "http://jenkins-custom.staging.svc.cluster.local:8080/"
                 image: "jenkins/inbound-agent:3206.vb_15dcf73f6a_9-3"
                 privileged: "false"
                 resourceLimitCpu: "512m"
@@ -65,7 +65,7 @@ jenkins:
                 ttyEnabled: true
             idleMinutes: 0
             instanceCap: 2147483647
-            label: "custom-jenkins-agent"
+            label: "jenkins-custom-jenkins-agent "
             nodeUsageMode: "NORMAL"
             podRetention: Never
             showRawYaml: true

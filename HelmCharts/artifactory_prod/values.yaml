@@ -21,6 +21,7 @@ artifactory:
       enabled: false
     service:
       type: NodePort
+      nodePort: 30750
     ## Default tag is from the artifactory sub-chart in the requirements.yaml
     image:
       registry: releases-docker.jfrog.io

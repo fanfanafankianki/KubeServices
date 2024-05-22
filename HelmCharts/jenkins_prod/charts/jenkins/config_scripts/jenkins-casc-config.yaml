@@ -30,7 +30,7 @@ jenkins:
         jenkinsUrl: "http://jenkins-custom.staging.svc.cluster.local:8080"
         jenkinsTunnel: "jenkins-custom-agent.staging.svc.cluster.local:31114"
         maxRequestsPerHostStr: "32"
-          retentionTimeout: "5"
+        retentionTimeout: "5"
         waitForPodSec: "600"
         name: "kubernetes"
         namespace: "staging"

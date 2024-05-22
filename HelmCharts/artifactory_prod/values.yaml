@@ -1,5 +1,6 @@
-# Default values for artifactory-oss.
+# Default values for artifactory-jcr.
 # This is a YAML-formatted file.
+
 # Beware when changing values here. You should know what you are doing!
 # Access the values with {{ .Values.key.subkey }}
 
@@ -8,25 +9,22 @@
 
 ## All values are under the 'artifactory' sub chart.
 artifactory:
-  global:
-    masterKey: FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+  ## Artifactory
+  ## See full list of supported Artifactory options and documentation in artifactory chart: https://github.com/jfrog/charts/tree/master/stable/artifactory
   database:
     allowNonPostgresql: true
     type: derby
     driver: org.apache.derby.jdbc.EmbeddedDriver
     url: jdbc:derby:${artifactory.home}/data/derby;create=true
-  ## Artifactory
-  ## See full list of supported Artifactory options and documentation in artifactory chart: https://github.com/jfrog/charts/tree/master/stable/artifactory
   artifactory:
     persistence:
       enabled: false
     service:
       type: NodePort
-      nodePort: 30150
     ## Default tag is from the artifactory sub-chart in the requirements.yaml
     image:
       registry: releases-docker.jfrog.io
-      repository: jfrog/artifactory-oss
+      repository: jfrog/artifactory-jcr
       # tag:
     ## Uncomment the following resources definitions or pass them from command line
     ## to control the cpu and memory resources allocated by the Kubernetes cluster
@@ -45,15 +43,15 @@ artifactory:
     # xmx: "3g"
     # other: ""
   installer:
-    platform: art-oss-helm
-  installerInfo: '{"productId":"Helm_artifactory-oss/{{ .Chart.Version }}","features":[{"featureId":"Platform/{{ printf "%s-%s" "kubernetes" .Capabilities.KubeVersion.Version }}"},{"featureId":"Database/{{ .Values.database.type }}"},{"featureId":"PostgreSQL_Enabled/{{ .Values.postgresql.enabled }}"},{"featureId":"Nginx_Enabled/{{ .Values.nginx.enabled }}"},{"featureId":"ArtifactoryPersistence_Type/{{ .Values.artifactory.persistence.type }}"},{"featureId":"SplitServicesToContainers_Enabled/{{ .Values.splitServicesToContainers }}"},{"featureId":"UnifiedSecretInstallation_Enabled/{{ .Values.artifactory.unifiedSecretInstallation }}"},{"featureId":"Filebeat_Enabled/{{ .Values.filebeat.enabled }}"},{"featureId":"ReplicaCount/{{ .Values.artifactory.replicaCount }}"}]}'
+    platform: jcr-helm
+  installerInfo: '{"productId":"Helm_artifactory-jcr/{{ .Chart.Version }}","features":[{"featureId":"Platform/{{ printf "%s-%s" "kubernetes" .Capabilities.KubeVersion.Version }}"},{"featureId":"Database/{{ .Values.database.type }}"},{"featureId":"PostgreSQL_Enabled/{{ .Values.postgresql.enabled }}"},{"featureId":"Nginx_Enabled/{{ .Values.nginx.enabled }}"},{"featureId":"ArtifactoryPersistence_Type/{{ .Values.artifactory.persistence.type }}"},{"featureId":"SplitServicesToContainers_Enabled/{{ .Values.splitServicesToContainers }}"},{"featureId":"UnifiedSecretInstallation_Enabled/{{ .Values.artifactory.unifiedSecretInstallation }}"},{"featureId":"Filebeat_Enabled/{{ .Values.filebeat.enabled }}"},{"featureId":"ReplicaCount/{{ .Values.artifactory.replicaCount }}"}]}'
   ## Nginx
   ## See full list of supported Nginx options and documentation in artifactory chart: https://github.com/jfrog/charts/tree/master/stable/artifactory
   nginx:
     enabled: false
     tlsSecretName: ""
     service:
-      type: NodePort
+      type: LoadBalancer
   ## Ingress
   ## See full list of supported Ingress options and documentation in artifactory chart: https://github.com/jfrog/charts/tree/master/stable/artifactory
   ingress:

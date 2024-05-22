@@ -16,7 +16,7 @@ jenkins:
         password: "admin21"
   disableRememberMe: false
   mode: NORMAL
-  numExecutors: 0
+  numExecutors: 2
   labelString: ""
   projectNamingStrategy: "standard"
   markupFormatter:

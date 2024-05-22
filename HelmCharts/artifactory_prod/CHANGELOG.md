@@ -1,5 +1,5 @@
-# JFrog Artifactory OSS Chart Changelog
-All changes to this chart will be documented in this file
+# JFrog Container Registry Chart Changelog
+All changes to this chart will be documented in this file.
 
 ## [107.84.11] - Feb 20, 2024
 * Updated `artifactory.installerInfo` content
@@ -77,8 +77,8 @@ All changes to this chart will be documented in this file
 ## [3.1.0] - Sep 30, 2020
 * Update dependency Artifactory chart version to 11.1.0 (Artifactory 7.9.0)
 
-## [3.0.2] - Sep 22, 2020
-* Updated readme
+## [3.0.2] - Sep 23, 2020
+* Updates readme
 
 ## [3.0.1] - Sep 15, 2020
 * Update dependency Artifactory chart version to 11.0.1 (Artifactory 7.7.8)
@@ -123,6 +123,9 @@ All changes to this chart will be documented in this file
 ## [2.2.0] - Apr 14, 2020
 * Update dependency Artifactory chart version to 9.4.0 (Artifactory 7.4.1)
 
+## [2.2.0] - Apr 14, 2020
+* Update dependency Artifactory chart version to 9.4.0 (Artifactory 7.4.1)
+
 ## [2.1.6] - Apr 13, 2020
 * Update dependency Artifactory chart version to 9.3.1 (Artifactory 7.3.2)
 
@@ -162,6 +165,9 @@ All changes to this chart will be documented in this file
 ## [2.0.0] - Feb 12, 2020
 * Update dependency Artifactory chart version to 9.0.0 (Artifactory 7.0.0)
 
+## [1.1.0] - Jan 19, 2020
+* Update dependency Artifactory chart version to 8.4.1 (Artifactory 6.17.0)
+
 ## [1.1.1] - Feb 3, 2020
 * Update dependency Artifactory chart version to 8.4.4
 
@@ -180,8 +186,21 @@ All changes to this chart will be documented in this file
 ## [0.2.0] - Dec 1, 2019
 * Updated Artifactory version to 6.16.0
 
-## [0.1.2] - Nov 28, 2019
+## [0.1.5] - Nov 28, 2019
 * Update dependency Artifactory chart version to 8.2.6
 
+## [0.1.4] - Nov 20, 2019
+* Update Readme
+
+## [0.1.3] - Nov 20, 2019
+* Fix JCR logo url
+* Update dependency to Artifactory 8.2.2 chart
+
+## [0.1.2] - Nov 20, 2019
+* Update JCR logo
+
 ## [0.1.1] - Nov 20, 2019
-* Initial release of the JFrog Artifactory OSS helm chart
+* Add `appVersion` to Chart.yaml
+
+## [0.1.0] - Nov 20, 2019
+* Initial release of the JFrog Container Registry helm chart

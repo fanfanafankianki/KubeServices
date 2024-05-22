@@ -44,3 +44,4 @@ spec:
           - docker-plugin:1.6.1
           - docker-workflow:572.v950f58993843
           - artifactory:4.0.6
+          - sonar:2.17.2

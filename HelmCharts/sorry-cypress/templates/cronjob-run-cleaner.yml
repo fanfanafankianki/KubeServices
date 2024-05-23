@@ -1,0 +1,51 @@
+{{- if .Values.runCleaner.enabled }}
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  labels:
+    app: sorry-cypress-run-cleaner
+  name: sorry-cypress-run-cleaner
+spec:
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      backoffLimit: 3
+      template:
+        metadata:
+          labels:
+            app: sorry-cypress-run-cleaner
+          {{- with .Values.runCleaner.podLabels }}
+            {{- toYaml . | nindent 12 }}
+          {{- end}}
+          {{- with .Values.runCleaner.podAnnotations }}
+          annotations:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+        spec:
+          {{- if .Values.runCleaner.priorityClassName }}
+          priorityClassName: {{ .Values.runCleaner.priorityClassName }}
+          {{- end }}
+          {{- with .Values.runCleaner.tolerations }}
+          tolerations:
+            {{ toYaml . | nindent 12 }}
+          {{- end }}
+          containers:
+            - name: sorry-cypress-run-cleaner
+              image: "{{ .Values.runCleaner.image.repository }}:{{ .Values.runCleaner.image.tag }}"
+              imagePullPolicy: Always
+              env:
+                - name: run_days_to_keep
+                  value: {{ .Values.runCleaner.daysToKeep | quote }}
+                - name: sorry_cypress_api_url
+                  value: "http://{{ include "sorry-cypress-helm.fullname" . }}-api.{{ .Release.Namespace }}.svc.{{ .Values.runCleaner.clusterDomain }}:4000"
+              resources:
+                {{- toYaml .Values.runCleaner.resources | nindent 16 }}
+              securityContext:
+                {{- toYaml .Values.runCleaner.securityContext | nindent 16 }}
+
+          restartPolicy: Never
+  suspend: false
+  schedule: {{ .Values.runCleaner.schedule }}
+{{- end }}

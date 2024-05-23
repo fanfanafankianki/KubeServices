@@ -1,0 +1,22 @@
+apiVersion: v2
+appVersion: 2.5.11
+dependencies:
+- condition: minio.enabled
+  name: minio
+  repository: "file://charts/minio"
+  version: 8.0.9
+- condition: mongodb.internal_db.enabled
+  name: mongodb
+  repository: "file://charts/mongodb"
+  version: 10.19.0
+description: A Helm chart for Sorry Cypress
+home: https://sorry-cypress.dev/
+icon: https://s3.amazonaws.com/sorry-cypress.dev/static/logo.png
+maintainers:
+- name: tico24
+  url: https://crumbhole.com
+name: sorry-cypress
+sources:
+- https://github.com/sorry-cypress/sorry-cypress
+type: application
+version: 1.20.0

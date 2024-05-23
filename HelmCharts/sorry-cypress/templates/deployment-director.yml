@@ -1,0 +1,206 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "sorry-cypress-helm.fullname" . }}-director
+spec:
+  replicas: {{ .Values.director.replicas }}
+  selector:
+    matchLabels:
+      app: {{ include "sorry-cypress-helm.fullname" . }}-director
+  template:
+    metadata:
+      name: {{ include "sorry-cypress-helm.fullname" . }}-director
+      labels:
+        app: {{ include "sorry-cypress-helm.fullname" . }}-director
+        {{- with .Values.director.podLabels }}
+        {{- toYaml . | nindent 8 }}
+        {{- end}}
+      {{- with .Values.director.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+    spec:
+      {{- if .Values.imagePullSecrets }}
+      imagePullSecrets: {{ toYaml .Values.imagePullSecrets | nindent 8 }}
+      {{- end }}
+      nodeSelector:
+        {{ toYaml .Values.director.nodeSelector | nindent 8 }}
+      {{- with .Values.director.tolerations }}
+      tolerations:
+        {{ toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.director.affinity }}
+      affinity:
+        {{- tpl . $ | nindent 8 }}
+      {{- end }}
+      {{- if .Values.director.priorityClassName }}
+      priorityClassName: {{ .Values.director.priorityClassName }}
+      {{- end }}
+      containers:
+      - env:
+        - name: DASHBOARD_URL
+          value: {{ .Values.director.environmentVariables.dashboardUrl | quote }}
+        - name: ALLOWED_KEYS
+        {{-  $defaultAllowedKeysSecretKey := "ALLOWED_KEYS" }}
+        {{- if .Values.director.allowedKeysEnableCustomSecret }}
+          valueFrom:
+            secretKeyRef:
+              name: {{ .Values.director.allowedKeysSecretName }}
+              key: {{ .Values.director.allowedKeysSecretKey | default $defaultAllowedKeysSecretKey }}
+        {{ else }}
+          value: {{ .Values.director.environmentVariables.allowedKeys }}
+        {{- end }}
+        - name: PORT
+          value: {{ .Values.director.service.port | quote }}
+        - name: EXECUTION_DRIVER
+          value: {{ .Values.director.environmentVariables.executionDriver }}
+        {{- if eq .Values.director.environmentVariables.executionDriver "../execution/mongo/driver" }}
+        - name: MONGODB_DATABASE
+        {{-  $defaultDatabaseNameSecretName := include "sorry-cypress-helm.fullname" . | printf "%s-mongodbsecrets" }}
+        {{-  $defaultDatabaseNameSecretKey := "MONGODB_DATABASE" }}
+         {{- if .Values.mongodb.mongoSecretConnectionString.secretDatabaseName}}
+          valueFrom:
+            secretKeyRef:
+              name: {{ .Values.mongodb.mongoSecretConnectionString.secretName | default $defaultDatabaseNameSecretName }}
+              key: {{ .Values.mongodb.mongoSecretConnectionString.secretDatabaseName | default $defaultDatabaseNameSecretKey }}
+        {{ else }}
+          value: {{ .Values.mongodb.mongoDatabase }}
+        {{- end }}
+        - name: MONGODB_URI
+        {{-  $defaultConnectionSecretName := include "sorry-cypress-helm.fullname" . | printf "%s-mongodbsecrets" }}
+        {{-  $defaultConnectionSecretKey := "MONGODB_URI" }}
+        {{- if .Values.mongodb.mongoSecretConnectionString.enableCustomSecret }}
+          valueFrom:
+            secretKeyRef:
+              name: {{ .Values.mongodb.mongoSecretConnectionString.secretName | default $defaultConnectionSecretName }}
+              key: {{ .Values.mongodb.mongoSecretConnectionString.secretKey | default $defaultConnectionSecretKey }}
+        {{- else if .Values.mongodb.mongoSecretConnectionString.enableSecret }}
+          valueFrom:
+            secretKeyRef:
+              name: {{ $defaultConnectionSecretName }}
+              key: {{ $defaultConnectionSecretKey }}
+        {{- else if .Values.mongodb.mongoConnectionString }}
+          value: {{ .Values.mongodb.mongoConnectionString }}
+        {{ else }}
+          value: "mongodb://{{ include "mongodb.hostname" . }}:{{ .Values.mongodb.service.port }}"
+        {{- end }}
+        {{- end }}
+        - name: SCREENSHOTS_DRIVER
+          value: {{ .Values.director.environmentVariables.screenshotsDriver }}
+        {{- if and (not .Values.minio.enabled) (eq .Values.director.environmentVariables.screenshotsDriver "../screenshots/s3.driver") }}
+        - name: S3_BUCKET
+          value: {{ .Values.s3.bucketName }}
+        - name: S3_REGION
+          value: {{ .Values.s3.region }}
+        {{- with .Values.s3.acl }}
+        - name: S3_ACL
+          value: {{ . }}
+        {{- end }}
+        {{- with .Values.s3.videoKeyPrefix }}
+        - name: S3_VIDEO_KEY_PREFIX
+          value: {{ . | quote }}
+        {{- end }}
+        {{- with .Values.s3.imageKeyPrefix }}
+        - name: S3_IMAGE_KEY_PREFIX
+          value: {{ . | quote }}
+        {{- end }}
+        {{- with .Values.s3.readUrlPrefix }}
+        - name: S3_READ_URL_PREFIX
+          value: {{ . | quote }}
+        {{- end }}
+        {{- with .Values.s3.accessKeyId }}
+        - name: AWS_ACCESS_KEY_ID
+          value: {{ . }}
+        {{- end }}
+        {{- if .Values.s3.secretAccessKey }}
+        - name: AWS_SECRET_ACCESS_KEY
+          valueFrom:
+            secretKeyRef:
+              name: {{ include "sorry-cypress-helm.fullname" . }}-s3secrets
+              key: AWS_SECRET_ACCESS_KEY
+        {{- end }}
+        {{- end }}
+        {{- if and (not .Values.minio.enabled) (eq .Values.director.environmentVariables.screenshotsDriver "../screenshots/azure-blob-storage.driver") }}
+        - name: AZURE_CONTAINER_NAME
+          value: {{ .Values.azureBlobStorage.containerName }}
+        - name: AZURE_UPLOAD_URL_EXPIRY_IN_HOURS
+          value: {{ .Values.azureBlobStorage.uploadUrlExpiryInHours | quote }}
+        - name: AZURE_CONNEXION_STRING
+          valueFrom:
+            secretKeyRef:
+              name: {{ default (include "sorry-cypress.azureBlobStorage.fullname" .) .Values.azureBlobStorage.existingSecret }}
+              key: "connexionstring"
+        {{- end }}
+        {{- if and (.Values.minio.enabled) (eq .Values.director.environmentVariables.screenshotsDriver "../screenshots/minio.driver") }}
+        - name: MINIO_BUCKET
+          value: {{ .Values.minio.defaultBucket.name }}
+        - name: MINIO_ACCESS_KEY
+          valueFrom:
+            secretKeyRef:
+              name: {{ default (include "sorry-cypress.minio.fullname" .) .Values.minio.existingSecret }}
+              key: "accesskey"
+        - name: MINIO_SECRET_KEY
+          valueFrom:
+            secretKeyRef:
+              name: {{ default (include "sorry-cypress.minio.fullname" .) .Values.minio.existingSecret }}
+              key: "secretkey"
+        - name: MINIO_ENDPOINT
+          value: {{ .Values.minio.endpoint }}
+        - name: MINIO_URL
+          value: {{ .Values.minio.url }}
+        - name: MINIO_PORT
+          value: {{ .Values.minio.service.port | quote }}
+        {{- if eq (.Values.minio.service.port | quote) (443 | quote) }}
+        - name: MINIO_USESSL
+          value: "true"
+        {{- end }}
+        - name: MINIO_READ_URL_PREFIX
+          value: {{ .Values.minio.readUrlPrefix }}
+        {{- end }}
+        - name: INACTIVITY_TIMEOUT_SECONDS
+          value: {{ .Values.director.environmentVariables.inactivityTimeoutSeconds | quote }}
+        - name: GITLAB_JOB_RETRIES
+          value: {{ .Values.director.environmentVariables.gitlabJobRetries | quote }}
+        - name: BASE_PATH
+          value: {{ .Values.director.environmentVariables.basePath | quote }}
+        {{- with .Values.director.extraEnv }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
+        image: "{{ .Values.director.image.repository }}:{{ .Values.director.image.tag | default .Chart.AppVersion }}"
+        imagePullPolicy: {{ .Values.director.image.pullPolicy }}
+        name: {{ include "sorry-cypress-helm.fullname" . }}-director
+        ports:
+        - containerPort: {{ .Values.director.service.port }}
+        resources:
+          {{- toYaml .Values.director.resources | nindent 10 }}
+        securityContext:
+          {{- toYaml .Values.director.securityContext | nindent 10 }}
+        readinessProbe:
+          httpGet:
+            path: {{ .Values.director.environmentVariables.basePath }}/health-check-db
+            port: 1234
+          periodSeconds: {{ .Values.director.readinessProbe.periodSeconds }}
+          timeoutSeconds: {{ .Values.director.readinessProbe.timeoutSeconds }}
+          successThreshold: {{ .Values.director.readinessProbe.successThreshold }}
+          failureThreshold: {{ .Values.director.readinessProbe.failureThreshold }}
+        {{- if .Values.mongodb.certificate.enabled }}
+        volumeMounts:
+          - name: {{ .Values.mongodb.certificate.name }}
+            mountPath: /etc/certs
+        {{- end}}
+      restartPolicy: Always
+      {{- with (.Values.director.serviceAccount.name | default .Values.director.serviceAccountName) }}
+      serviceAccountName: {{ . | quote }}
+      {{- end }}
+      {{- if .Values.mongodb.certificate.enabled}}
+      volumes:
+        - name: {{ .Values.mongodb.certificate.name }}
+          configMap:
+            name:  {{ .Values.mongodb.certificate.configMapName }}
+      {{- else }}
+      volumes: null
+      {{- end }}
+      {{- if .Values.director.initContainers }}
+      initContainers:
+      {{- include "common.tplvalues.render" (dict "value" .Values.director.initContainers "context" $) | nindent 8 }}
+      {{- end  }}

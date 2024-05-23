@@ -16,6 +16,36 @@ metadata:
     external-dns.alpha.kubernetes.io/ttl: "60"
 spec:
   rules:
+    - host: minio.trainingnotes.fit
+      http:
+        paths:
+          - pathType: Prefix
+            path: /
+            backend:
+              service:
+                name: sorry-cypress-minio
+                port:
+                  number: 9000
+    - host: cypress.trainingnotes.fit
+      http:
+        paths:
+          - pathType: Prefix
+            path: /
+            backend:
+              service:
+                name: sorry-cypress-dashboard
+                port:
+                  number: 8080
+    - host: cypressapi.trainingnotes.fit
+      http:
+        paths:
+          - pathType: Prefix
+            path: /
+            backend:
+              service:
+                name: sorry-cypress-api
+                port:
+                  number: 4000
     - host: trainingnotes.fit
       http:
         paths:

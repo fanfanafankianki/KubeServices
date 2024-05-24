@@ -20,8 +20,8 @@ pipeline {
             }
             steps {
                 withSonarQubeEnv('sonar') {
-                    sh '''
-                    /var/jenkins_home/tools/hudson.plugins.sonar.SonarRunnerInstallation/SonarScanner/bin/sonar-scanner \\
+                    sh """
+                    ${scannerHome}/bin/sonar-scanner \\
                     -Dsonar.projectKey=PwrTrckrSite \\
                     -Dsonar.projectName=PwrTrckr \\
                     -Dsonar.projectVersion=1.0 \\
@@ -30,7 +30,7 @@ pipeline {
                     -Dsonar.junit.reportsPath=target/surefire-reports/ \\
                     -Dsonar.jacoco.reportsPath=target/jacoco.exec \\
                     -Dsonar.java.checkstyle.reportPaths=target/checkstyle-result.xml \\
-                    -Dsonar.login=${SONARQUBE_CREDENTIALS}'''
+                    -Dsonar.login=${SONARQUBE_CREDENTIALS}"""
                 }
             }
         }

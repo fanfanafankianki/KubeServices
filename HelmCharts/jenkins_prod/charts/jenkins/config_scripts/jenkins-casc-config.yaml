@@ -77,7 +77,24 @@ jenkins:
             serviceAccount: "default"
             slaveConnectTimeoutStr: "100"
             yamlMergeStrategy: override
+
+credentials:
+  system:
+    domainCredentials:
+      - domain:
+          name: "global"
+          description: "Global credentials"
+        credentials:
+          - usernamePassword:
+              scope: GLOBAL
+              id: "your-artifactory-credentials-id"
+              description: "Artifactory credentials"
+              username: "jenkins"
+              password: "Password123"
+
 unclassified:
   location:
     adminAddress: "admin@jenkins.io"
     url: "http://jenkins:8080/"
+  jobDslSecurityConfiguration:
+    useScriptSecurity: false

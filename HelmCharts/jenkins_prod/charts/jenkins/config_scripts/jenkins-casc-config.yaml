@@ -86,6 +86,12 @@ credentials:
               description: "Artifactory credentials"
               username: "jenkins"
               password: "Password123"
+          - string:
+              scope: GLOBAL
+              id: "sonarqube-token-id"
+              description: "SonarQube Authentication Token"
+              secret: "tiktok"
+
 
 security:
   globalJobDslSecurityConfiguration:
@@ -95,3 +101,19 @@ unclassified:
   location:
     adminAddress: "admin@jenkins.io"
     url: "http://jenkins:8080/"
+  sonarGlobalConfiguration:
+    installations:
+      - name: "SonarScanner"
+        serverUrl: "https://sonarqube.trainingnotes.fit/"
+        serverAuthenticationToken: "sonarqube-token-id"
+
+tool:
+  installations:
+    - sonarQubeScanner:
+        name: "sonar"
+        properties:
+          - installSource:
+              installers:
+                - sonarScannerInstaller:
+                    id: "SonarQube Scanner"
+                    version: "5.0.1.3006"

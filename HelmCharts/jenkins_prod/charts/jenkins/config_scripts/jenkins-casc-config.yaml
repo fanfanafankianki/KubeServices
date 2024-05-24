@@ -86,7 +86,7 @@ credentials:
               description: "Artifactory credentials"
               username: "jenkins"
               password: "Password123"
-          - secretText:
+          - string:
               scope: GLOBAL
               id: "sonarqube-token-id"
               description: "sonarqube-token-id"

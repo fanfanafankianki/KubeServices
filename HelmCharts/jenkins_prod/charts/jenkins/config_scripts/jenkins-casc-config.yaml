@@ -87,9 +87,11 @@ credentials:
               username: "jenkins"
               password: "Password123"
 
+security:
+  globalJobDslSecurityConfiguration:
+    useScriptSecurity: false
+
 unclassified:
   location:
     adminAddress: "admin@jenkins.io"
     url: "http://jenkins:8080/"
-  jobDslSecurityConfiguration:
-    useScriptSecurity: false

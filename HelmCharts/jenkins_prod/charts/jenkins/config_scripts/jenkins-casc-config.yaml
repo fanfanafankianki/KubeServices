@@ -3,6 +3,11 @@ jenkins:
   numExecutors: 1
   mode: NORMAL
   scmCheckoutRetryCount: 2
+  unclassified:
+    jobDslSecurityConfiguration:
+      scriptApproval:
+        approvedScriptHashes:
+          - "e643af4501a90dab71d45fd4d6d78eff0c1f6332b110ae3bb81e3180ce00e796"
   authorizationStrategy:
     loggedInUsersCanDoAnything:
       allowAnonymousRead: false

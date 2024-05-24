@@ -45,3 +45,4 @@ spec:
           - docker-workflow:572.v950f58993843
           - artifactory:4.0.6
           - sonar:2.17.2
+          - pipeline-stage-view:2.34

@@ -1,4 +1,4 @@
-pipelineJob('First_job') {
+pipelineJob('Artifactory') {
   definition {
     cps {
       script("""

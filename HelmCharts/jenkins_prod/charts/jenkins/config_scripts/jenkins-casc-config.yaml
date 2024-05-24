@@ -93,6 +93,3 @@ unclassified:
     url: "http://jenkins:8080/"
   jobDslSecurityConfiguration:
     useScriptSecurity: false
-    scriptApproval:
-      approvedScriptHashes:
-        - "e643af4501a90dab71d45fd4d6d78eff0c1f6332b110ae3bb81e3180ce00e796"

@@ -21,7 +21,7 @@ pipeline {
             steps {
                 withSonarQubeEnv('sonar') {
                     sh '''
-                    ${scannerHome}/bin/sonar-scanner \\
+                    /var/jenkins_home/tools/hudson.plugins.sonar.SonarRunnerInstallation/SonarScanner/bin/sonar-scanner \\
                     -Dsonar.projectKey=PwrTrckrSite \\
                     -Dsonar.projectName=PwrTrckr \\
                     -Dsonar.projectVersion=1.0 \\
@@ -29,8 +29,8 @@ pipeline {
                     -Dsonar.java.binaries=target/test-classes/com/visualpathit/account/controllerTest/ \\
                     -Dsonar.junit.reportsPath=target/surefire-reports/ \\
                     -Dsonar.jacoco.reportsPath=target/jacoco.exec \\
-                    -Dsonar.java.checkstyle.reportPaths=target/checkstyle-result.xml
-                    '''
+                    -Dsonar.java.checkstyle.reportPaths=target/checkstyle-result.xml \\
+                    -Dsonar.login=${SONARQUBE_CREDENTIALS}'''
                 }
             }
         }

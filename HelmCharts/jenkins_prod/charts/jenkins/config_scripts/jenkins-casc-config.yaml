@@ -107,13 +107,12 @@ unclassified:
         serverUrl: "https://sonarqube.trainingnotes.fit/"
         serverAuthenticationToken: "sonarqube-token-id"
 
-tool:
-  installations:
-    - sonarQubeScanner:
-        name: "sonar"
-        properties:
-          - installSource:
-              installers:
-                - sonarScannerInstaller:
-                    id: "SonarQube Scanner"
-                    version: "5.0.1.3006"
+tools:
+  sonarRunnerInstallation:
+    - name: "sonar"
+      properties:
+        - installSource:
+            installers:
+              - sonarScannerInstaller:
+                  id: "SonarQube Scanner"
+                  version: "5.0.1.3006"

@@ -287,7 +287,7 @@ director:
     # Valid options are:
     # "../screenshots/dummy.driver"
     # "../screenshots/s3.driver"
-    screenshotsDriver: "../screenshots/s3.driver"
+    screenshotsDriver: "../screenshots/minio.driver"
 
     # https://docs.sorry-cypress.dev/configuration/director-configuration
     allowedKeys: ""
@@ -336,6 +336,7 @@ director:
     #   value: ENV_VALUE
 
 mongodb:
+  replicaCount: 1
   # You need to ensure that director.environmentVariables.executionDriver is set to "../execution/mongo/driver" if you want the director to use mongodb.
   mongoConnectionString: "mongodb://sorry-cypress-mongodb-0:27017"
 
@@ -416,8 +417,14 @@ s3:
     #      - chart-example.local
 
 minio:
-  enabled: false
-
+#  service:
+#    port: 80
+  enabled: true
+  accessKey: "tik"
+  secretKey: "12345678"
+  resources:
+    requests:
+      memory: 1Gi
   # If enabled, you can include any values from the minio helm chart: https://github.com/minio/charts/blob/master/minio/values.yaml
   # Below are the bare minimim to get you started.
 
@@ -434,6 +441,7 @@ minio:
     policy: public
 
   persistence:
+    enabled: false
     size: 10Gi
 
 azureBlobStorage:

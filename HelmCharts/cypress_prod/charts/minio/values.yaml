@@ -114,7 +114,7 @@ trustedCertsSecret: ""
 ## ref: http://kubernetes.io/docs/user-guide/persistent-volumes/
 ##
 persistence:
-  enabled: true
+  enabled: false
 
   ## A manually managed Persistent Volume and Claim
   ## Requires persistence.enabled: true
@@ -215,7 +215,7 @@ podLabels: {}
 ##
 resources:
   requests:
-    memory: 4Gi
+    memory: 1Gi
 
 ## Create a bucket after minio install
 ##

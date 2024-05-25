@@ -134,6 +134,8 @@ spec:
         {{- if and (.Values.minio.enabled) (eq .Values.director.environmentVariables.screenshotsDriver "../screenshots/minio.driver") }}
         - name: MINIO_BUCKET
           value: {{ .Values.minio.defaultBucket.name }}
+        - name: MINIO_USESSL
+          value: "true"
         - name: MINIO_ACCESS_KEY
           valueFrom:
             secretKeyRef:

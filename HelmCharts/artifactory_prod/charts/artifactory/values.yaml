@@ -493,13 +493,19 @@ artifactory:
 
   ## Add custom volumes
   # If .Values.artifactory.unifiedSecretInstallation is true then secret name should be '{{ template "artifactory.fullname" . }}-unified-secret'
-  customVolumes: ""
+  customVolumes: |
+    - name: artifactory-config-import
+      configMap:
+        name: artifactory-config-import
   #  - name: custom-script
   #    configMap:
   #      name: custom-script
 
   ## Add custom volumesMounts
-  customVolumeMounts: ""
+  customVolumeMounts: |
+    - name: artifactory-config-import
+      mountPath: "/var/opt/jfrog/artifactory/var/etc/artifactory/artifactory.config.import.yml"
+      subPath: artifactory.config.import.yml
   #  - name: custom-script
   #    mountPath: "/scripts/script.sh"
   #    subPath: script.sh
@@ -529,7 +535,10 @@ artifactory:
     ## The dataKey should be the name of the secret data key created.
     dataKey:
   ## Create configMap with artifactory.config.import.xml and security.import.xml and pass name of configMap in following parameter
-  configMapName:
+  configMapName: artifactory-config-import
+  newConfigMap:
+    myInitScript: |-
+      {{ (.Files.Get "config_files/artifactory.config.import.yml") | nindent 2 }}
   # Add any list of configmaps to Artifactory
   configMaps: ""
   #  posthook-start.sh: |-

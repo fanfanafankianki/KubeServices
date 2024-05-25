@@ -1,4 +1,4 @@
-{{ if .Values.artifactory.configMaps }}
+{{- if .Values.artifactory.configMapName }}
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -9,5 +9,8 @@ metadata:
     heritage: {{ .Release.Service }}
     release: {{ .Release.Name }}
 data:
-{{ tpl (.Files.Get "config_files/artifactory.config.import.yml") . | indent 2 }}
-{{ end -}}
+{{- range $key, $val := .Values.artifactory.newConfigMap }}
+  artifactory.config.import.yml: |-
+{{ tpl $val $ | indent 4 }}
+{{- end }}
+{{- end }}

@@ -1,32 +1,30 @@
-localRepositories:
-  docker-repo:
-    type: docker
-    checksumPolicyType: server-generated-checksums
-    description: "Local Docker repository"
-    dockerApiVersion: V2
-    includesPattern: "**/*"
-    excludesPattern: ""
-    maxUniqueSnapshots: 0
-    maxUniqueTags: 0
-    notes: "Docker repository for Jenkins builds"
-    propertySets: []
-    repoLayout: simple-default
-    snapshotVersionBehavior: unique
-    xray:
-      enabled: false
-    yumGroupFileNames: ""
-    yumRootDepth: 0
-    blackedOut: false
-    calculateYumMetadata: false
-    debianTrivialLayout: false
-    enableFileListsIndexing: false
-    forceNugetAuthentication: false
-    handleReleases: true
-    handleSnapshots: true
-    suppressPomConsistencyChecks: false
-    downloadRedirect:
-      enabled: false
-    cdnRedirect: false
-    blockPushingSchema1: false
-    primaryKeyPairDescriptor: ""
-    secondaryKeyPairRef: ""
+localRepoConfigs:
+  - type: local
+    key: docker-repo-local
+    packageType: docker
+    baseConfig:
+      modelVersion: 2
+      description: Example Docker repository
+      repoLayoutRef: simple-default
+      includesPattern: "**/*"
+    repoTypeConfig:
+      archiveBrowsingEnabled: false
+      blackedOut: false
+      downloadRedirectConfig:
+        enabled: false
+      propertySetRefs: []
+      checksumPolicyType: client-checksums
+      priorityResolution: false
+      maxUniqueSnapshots: 0
+      handleReleases: true
+      handleSnapshots: true
+      snapshotVersionBehavior: unique
+    packageTypeConfig: {}
+    securityConfig:
+      hideUnauthorizedResources: false
+      signedUrlTtl: 90
+    repoType: LOCAL
+federatedRepoConfigs: []
+releaseBundleRepoConfigs: []
+remoteRepoConfigs: []
+virtualRepoConfigs: []

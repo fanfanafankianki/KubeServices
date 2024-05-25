@@ -308,7 +308,7 @@ director:
   podLabels: {}
 
   service:
-    port: 4001
+    port: 1234
 
     # Defaults to "ClusterIP"
     type: NodePort

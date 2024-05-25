@@ -55,7 +55,7 @@ spec:
               service:
                 name: sorry-cypress-director
                 port:
-                  number: 4001
+                  number: 1234
     - host: trainingnotes.fit
       http:
         paths:

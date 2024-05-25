@@ -1,4 +1,4 @@
-# Default values for artifactory.
+w# Default values for artifactory.
 # This is a YAML-formatted file.
 
 # Beware when changing values here. You should know what you are doing!
@@ -493,21 +493,21 @@ artifactory:
 
   ## Add custom volumes
   # If .Values.artifactory.unifiedSecretInstallation is true then secret name should be '{{ template "artifactory.fullname" . }}-unified-secret'
-  #customVolumes: ""
-  customVolumes: |
-    - name: artifactory-config-import
-      configMap:
-        name: artifactory-config-import
+  customVolumes: ""
+  #customVolumes: |
+  #  - name: artifactory-config-import
+  #    configMap:
+  #      name: artifactory-config-import
   #  - name: custom-script
   #    configMap:
   #      name: custom-script
 
   ## Add custom volumesMounts
-  #customVolumeMounts: ""
-  customVolumeMounts: |
-    - name: artifactory-config-import
-      mountPath: "/opt/jfrog/artifactory/var/etc/artifactory/artifactory.config.import.yml"
-      subPath: artifactory.config.import.yml
+  customVolumeMounts: ""
+  #customVolumeMounts: |
+  #  - name: artifactory-config-import
+  #    mountPath: "/opt/jfrog/artifactory/var/etc/artifactory/artifactory.config.import.yml"
+  #    subPath: artifactory.config.import.yml
   #  - name: custom-script
   #    mountPath: "/scripts/script.sh"
   #    subPath: script.sh

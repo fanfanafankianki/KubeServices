@@ -46,6 +46,16 @@ spec:
                 name: sorry-cypress-api
                 port:
                   number: 4000
+    - host: cypressapidirector.trainingnotes.fit
+      http:
+        paths:
+          - pathType: Prefix
+            path: /
+            backend:
+              service:
+                name: sorry-cypress-director
+                port:
+                  number: 4001
     - host: trainingnotes.fit
       http:
         paths:

@@ -10,7 +10,8 @@ metadata:
     release: {{ .Release.Name }}
 data:
 {{- range $key, $val := .Values.artifactory.newConfigMap }}
-  artifactory.config.import.yml: |-
+  {{ $key }}: |-
 {{ tpl $val $ | indent 4 }}
-{{- end }}
-{{- end }}
+{{ end }}
+{{ print "\n" }}
+{{ end }}

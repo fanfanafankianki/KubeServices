@@ -504,7 +504,7 @@ artifactory:
   ## Add custom volumesMounts
   customVolumeMounts: |
     - name: artifactory-config-import
-      mountPath: "/var/opt/jfrog/artifactory/var/etc/artifactory/artifactory.config.import.yml"
+      mountPath: "/var/opt/jfrog/artifactory/etc/artifactory/artifactory.config.import.yml"
       subPath: artifactory.config.import.yml
   #  - name: custom-script
   #    mountPath: "/scripts/script.sh"
@@ -537,8 +537,8 @@ artifactory:
   ## Create configMap with artifactory.config.import.xml and security.import.xml and pass name of configMap in following parameter
   configMapName: artifactory-config-import
   newConfigMap:
-    myInitScript: |-
-      {{ (.Files.Get "config_files/artifactory.config.import.yml") | nindent 2 }}
+    artifactory.config.import.yml: |-
+      {{ (.Files.Get "config_files/artifactory.config.import.yml") | indent 2 }}
   # Add any list of configmaps to Artifactory
   configMaps: ""
   #  posthook-start.sh: |-

@@ -1,0 +1,198 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: site-project-ingress
+  namespace: staging
+  annotations:
+    kubernetes.io/ingress.class: alb
+    alb.ingress.kubernetes.io/subnets: subnet-09b2d1e1275f7d002,subnet-0116f7740aa5a262c
+    alb.ingress.kubernetes.io/target-type: instance
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/certificate-arn: "arn:aws:acm:eu-north-1:975050111074:certificate/fd51c16e-d47e-4b6a-921a-c1cd4099bbb5,arn:aws:acm:eu-north-1:975050111074:certificate/e1414497-fcde-47bc-aec4-3f46bc975ecf"
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}, {"HTTPS": 443}, {"HTTPS": 9000}]' # Updated to include HTTP
+    alb.ingress.kubernetes.io/actions.ssl-redirect: >-
+      {"Type":"redirect","RedirectConfig":{"Protocol":"HTTPS","Port":"443","StatusCode":"HTTP_301"}}
+    external-dns.alpha.kubernetes.io/hostname: "trainingnotes.fit"
+    external-dns.alpha.kubernetes.io/ttl: "60"
+spec:
+  rules:
+    - host: minio.trainingnotes.fit
+      http:
+        paths:
+          - pathType: Prefix
+            path: /
+            backend:
+              service:
+                name: sorry-cypress-minio
+                port:
+                  number: 9000
+    - host: cypress.trainingnotes.fit
+      http:
+        paths:
+          - pathType: Prefix
+            path: /
+            backend:
+              service:
+                name: sorry-cypress-dashboard
+                port:
+                  number: 8080
+    - host: cypressapi.trainingnotes.fit
+      http:
+        paths:
+          - pathType: Prefix
+            path: /
+            backend:
+              service:
+                name: sorry-cypress-api
+                port:
+                  number: 4000
+    - host: cypressdirector.trainingnotes.fit
+      http:
+        paths:
+          - pathType: Prefix
+            path: /
+            backend:
+              service:
+                name: sorry-cypress-director
+                port:
+                  number: 1234
+    - host: trainingnotes.fit
+      http:
+        paths:
+          - pathType: Prefix
+            path: /
+            backend:
+              service:
+                name: angular-nginx-custom
+                port:
+                  number: 80
+    - host: django.trainingnotes.fit
+      http:
+        paths:
+          - pathType: Prefix
+            path: /
+            backend:
+              service:
+                name: django-nginx-custom
+                port:
+                  number: 80
+    - host: artifactory.trainingnotes.fit
+      http:
+        paths:
+          - pathType: Prefix
+            path: /
+            backend:
+              service:
+                name: artifactory-custom
+                port:
+                  number: 8082
+    - host: grafana.trainingnotes.fit
+      http:
+        paths:
+          - pathType: Prefix
+            path: /
+            backend:
+              service:
+                name: grafana-custom
+                port:
+                  number: 80
+    - host: jenkins.trainingnotes.fit
+      http:
+        paths:
+          - pathType: Prefix
+            path: /
+            backend:
+              service:
+                name: jenkins-custom
+                port:
+                  number: 8080
+    - host: jenkins-custom.trainingnotes.fit
+      http:
+        paths:
+          - pathType: Prefix
+            path: /
+            backend:
+              service:
+                name: jenkins-custom-agent
+                port:
+                  number: 31114
+    - host: postgresqladmin.trainingnotes.fit
+      http:
+        paths:
+          - pathType: Prefix
+            path: /
+            backend:
+              service:
+                name: postgresqladmin-custom-pgadmin4
+                port:
+                  number: 80
+    - host: postgresql.trainingnotes.fit
+      http:
+        paths:
+          - pathType: Prefix
+            path: /
+            backend:
+              service:
+                name: postgresql-custom
+                port:
+                  number: 5432
+    - host: prometheus.trainingnotes.fit
+      http:
+        paths:
+          - pathType: Prefix
+            path: /
+            backend:
+              service:
+                name: prometheus-custom-server
+                port:
+                  number: 80
+    - host: sonarqube.trainingnotes.fit
+      http:
+        paths:
+          - pathType: Prefix
+            path: /
+            backend:
+              service:
+                name: sonarqube-custom-sonarqube
+                port:
+                  number: 9000
+    - host: memcached.trainingnotes.fit
+      http:
+        paths:
+          - pathType: Prefix
+            path: /
+            backend:
+              service:
+                name: memcached-custom
+                port:
+                  number: 11211
+    - host: memcached-metrics.trainingnotes.fit
+      http:
+        paths:
+          - pathType: Prefix
+            path: /
+            backend:
+              service:
+                name: memcached-custom-metrics
+                port:
+                  number: 9150
+    - host: rabbitmq.trainingnotes.fit
+      http:
+        paths:
+          - pathType: Prefix
+            path: /
+            backend:
+              service:
+                name: rabbitmq-custom
+                port:
+                  number: 30013
+    - host: rabbitmq-metrics.trainingnotes.fit
+      http:
+        paths:
+          - pathType: Prefix
+            path: /
+            backend:
+              service:
+                name: rabbitmq-custom
+                port:
+                  number: 30018

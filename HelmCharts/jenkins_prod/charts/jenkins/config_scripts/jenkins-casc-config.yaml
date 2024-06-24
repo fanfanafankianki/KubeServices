@@ -1,0 +1,121 @@
+jenkins:
+  systemMessage: "Welcome to Jenkins configured with JCasC!"
+  numExecutors: 1
+  mode: NORMAL
+  scmCheckoutRetryCount: 2
+  authorizationStrategy:
+    loggedInUsersCanDoAnything:
+      allowAnonymousRead: false
+  securityRealm:
+    local:
+      allowsSignup: false
+      enableCaptcha: false
+      users:
+      - id: "admin12"
+        name: "Jenkins Admin"
+        password: "admin21"
+  disableRememberMe: false
+  mode: NORMAL
+  numExecutors: 2
+  labelString: ""
+  projectNamingStrategy: "standard"
+  markupFormatter:
+    plainText
+  clouds:
+    - kubernetes:
+        containerCapStr: "10"
+        defaultsProviderTemplate: ""
+        connectTimeout: "5"
+        readTimeout: "15"
+        jenkinsUrl: "http://jenkins-custom.staging.svc.cluster.local:8080"
+        jenkinsTunnel: "jenkins-custom-agent.staging.svc.cluster.local:31114"
+        maxRequestsPerHostStr: "32"
+        retentionTimeout: "5"
+        waitForPodSec: "600"
+        name: "kubernetes"
+        namespace: "staging"
+        serverUrl: "https://kubernetes.default"
+        credentialsId: ""
+        podLabels:
+          - key: "jenkins/custom-jenkins-agent"
+            value: "true"
+        templates:
+          - name: "default"
+            namespace: "staging"
+            id: 7c034934d4404594ab8d090ee9b17d462b49f6a70f9e65a1054273da13cd8332
+            containers:
+              - name: "jnlp"
+                alwaysPullImage: false
+                args: "^${computer.jnlpmac} ^${computer.name}"
+                envVars:
+                  - envVar:
+                      key: "JENKINS_URL"
+                      value: "http://jenkins-custom.staging.svc.cluster.local:8080/"
+                image: "jenkins/inbound-agent:3206.vb_15dcf73f6a_9-3"
+                privileged: "false"
+                resourceLimitCpu: "512m"
+                resourceLimitMemory: "512Mi"
+                resourceRequestCpu: "512m"
+                resourceRequestMemory: "512Mi"
+                ttyEnabled: false
+                workingDir: /home/jenkins/agent
+              - name: "docker"
+                image: "docker:latest"
+                command: "cat"
+                ttyEnabled: true
+            idleMinutes: 0
+            instanceCap: 2147483647
+            label: "jenkins-custom-jenkins-agent "
+            nodeUsageMode: "NORMAL"
+            podRetention: Never
+            showRawYaml: true
+            serviceAccount: "default"
+            slaveConnectTimeoutStr: "100"
+            yamlMergeStrategy: override
+
+credentials:
+  system:
+    domainCredentials:
+      - domain:
+          name: "global"
+          description: "Global credentials"
+        credentials:
+          - usernamePassword:
+              scope: GLOBAL
+              id: "your-artifactory-credentials-id"
+              description: "Artifactory credentials"
+              username: "jenkins"
+              password: "Password123"
+          - string:
+              scope: GLOBAL
+              id: "sonarqube-token-id"
+              description: "sonarqube-token-id"
+              secret: "tiktok"
+
+tool:
+  mavenGlobalConfig:
+    globalSettingsProvider: "standard"
+    settingsProvider: "standard"
+  sonarRunnerInstallation:
+    installations:
+    - name: "SonarScanner"
+      properties:
+      - installSource:
+          installers:
+          - sonarRunnerInstaller:
+              id: "5.0.1.3006"
+
+security:
+  globalJobDslSecurityConfiguration:
+    useScriptSecurity: false
+
+unclassified:
+  location:
+    adminAddress: "admin@jenkins.io"
+    url: "http://jenkins:8080/"
+  sonarGlobalConfiguration:
+    installations:
+      - name: "sonar"
+        serverUrl: "https://sonarqube.trainingnotes.fit/"
+        serverAuthenticationToken: "sonarqube-token-id"
+

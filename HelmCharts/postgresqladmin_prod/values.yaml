@@ -1,0 +1,7 @@
+pgadmin4:
+  persistentVolume:
+    enabled: false
+    service:
+      type: NodePort
+      nodePorts:
+        postgresql: "31010"

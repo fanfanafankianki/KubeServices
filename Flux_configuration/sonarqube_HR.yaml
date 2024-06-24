@@ -1,0 +1,42 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
+kind: HelmRelease
+metadata:
+  name: sonarqube-custom
+  namespace: staging
+spec:
+  interval: 1m
+  chart:
+    spec:
+      chart: ./HelmCharts/sonarqube_prod
+      sourceRef:
+        kind: GitRepository
+        name: flux-system
+        namespace: flux-system
+  values:
+    prometheusMonitoring:
+      podMonitor:
+        enabled: true
+#    resources:
+#      requests:
+#        cpu: 2
+#        memory: 1024Mi
+#      limits:
+#        cpu: 2
+#        memory: 1024Mi
+    startupProbe:
+      initialDelaySeconds: 200
+    postgresql:
+      enabled: false
+      persistence:
+        enabled: false
+        existingClaim: "sonarqube-claim"
+    jdbcOverwrite:
+      enable: true
+      jdbcUrl: "jdbc:postgresql://postgresql-custom.staging.svc.cluster.local:5432/postgresql"
+      jdbcUsername: "bartek"
+      jdbcPassword: "bartek"
+    persistence:
+      enabled: false
+    service:
+      type: NodePort
+      nodePort: 30011

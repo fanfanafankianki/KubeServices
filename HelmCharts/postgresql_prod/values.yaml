@@ -1,0 +1,9 @@
+postgresql:
+  primary:
+    persistence:
+      enabled: true
+      existingClaim: "test-claim"
+    service:
+      type: NodePort
+      nodePorts:
+        postgresql: "31006"

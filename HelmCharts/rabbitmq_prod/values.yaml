@@ -1,0 +1,14 @@
+rabbitmq:
+  serviceAccount:
+    automountServiceAccountToken: false
+  persistence:
+    enabled: false
+  service:
+    type: NodePort
+  nodePorts:
+    amqp: "30013"
+    amqpTls: "31014"
+    dist: "30015"
+    manager: "30016"
+    epmd: "30017"
+    metrics: "30018"

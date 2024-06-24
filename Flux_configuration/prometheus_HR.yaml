@@ -1,0 +1,68 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
+kind: HelmRelease
+metadata:
+  name: prometheus-custom
+  namespace: staging
+spec:
+  interval: 1m
+  chart:
+    spec:
+      chart: ./HelmCharts/prometheus_prod
+      sourceRef:
+        kind: GitRepository
+        name: flux-system
+        namespace: flux-system
+  values:
+    prometheus:
+      alertmanager:
+        enabled: false
+      server:
+        persistentVolume:
+          existingClaim: "prometheus-claim"
+        service:
+          type: NodePort
+          nodePort: 30010
+      serverFiles:
+        prometheus.yml:
+          scrape_configs:
+            - job_name: 'kube-state-metrics'
+              static_configs:
+                - targets: ['prometheus-custom-kube-state-metrics.staging.svc.cluster.local:8080']
+            - job_name: 'angular-nginx'
+              metrics_path: '/metrics'
+              static_configs:
+                - targets: ['trainingnotes.fit']
+            - job_name: 'django-nginx'
+              metrics_path: '/metrics'
+              static_configs:
+                - targets: ['django.trainingnotes.fit']
+            - job_name: 'prometheus'
+              metrics_path: '/metrics'
+              static_configs:
+                - targets: ['prometheus.trainingnotes.fit']
+            - job_name: 'jenkins'
+              metrics_path: '/prometheus'
+              static_configs:
+                - targets: ['jenkins.trainingnotes.fit']
+            - job_name: 'grafana'
+              metrics_path: '/metrics'
+              static_configs:
+                - targets: ['grafana.trainingnotes.fit']
+            - job_name: 'postgresql'
+              metrics_path: '/metrics'
+              static_configs:
+                - targets: ['postgresql-custom-metrics.staging.svc.cluster.local:9187']
+            - job_name: 'memcached'
+              metrics_path: '/metrics'
+              static_configs:
+                - targets: ['memcached-metrics.trainingnotes.fit']
+            - job_name: 'rabbitmq'
+              metrics_path: '/metrics'
+              static_configs:
+                - targets: ['rabbitmq-metrics.trainingnotes.fit']
+            - job_name: 'sonarqube'
+              metrics_path: '/api/monitoring/metrics'
+              static_configs:
+                - targets: ['sonarqube.trainingnotes.fit']
+              authorization:
+                credentials: 'define_it'

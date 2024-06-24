@@ -1,0 +1,6 @@
+dependencies:
+- name: memcached
+  repository: file://charts/memcached
+  version: 6.12.1
+digest: sha256:504bc6f4ce9d9644db0df1aa9e490d1a0169c9d778394eda09db496e45c4329a
+generated: "2024-05-19T18:12:34.359375892Z"

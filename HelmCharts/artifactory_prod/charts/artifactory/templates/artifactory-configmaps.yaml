@@ -1,0 +1,17 @@
+{{- if .Values.artifactory.configMapName }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Values.artifactory.configMapName }}
+  labels:
+    app: {{ template "artifactory.fullname" . }}
+    chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+    heritage: {{ .Release.Service }}
+    release: {{ .Release.Name }}
+data:
+{{- range $key, $val := .Values.artifactory.newConfigMap }}
+  {{ $key }}: |-
+{{ tpl $val $ | indent 4 }}
+{{ end }}
+{{ print "\n" }}
+{{ end }}

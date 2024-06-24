@@ -1,0 +1,26 @@
+---
+version: 1
+
+GeneralConfiguration:
+  eula:
+    accepted: true
+
+OnboardingConfiguration:
+  repoTypes:
+    - docker
+    - helm
+
+localRepositories:
+  docker-repo:   #The local repository name
+    type: docker
+    packageType: docker   #Specifies the package type (required for some configurations)
+    description: "Hello world"   #A free text field that describes the content and purpose of the repository
+    repoLayoutRef: simple-default   #Sets the layout that the repository should use for storing and identifying modules. The layout usually varies for the different package types
+    checksumPolicyType: server-generated-checksums   #Determines how Artifactory behaves when a client checksum for a deployed resource is missing or conflicts with the locally calculated checksum
+    dockerApiVersion: V2   #Only for Docker repositories. The Docker API version
+    maxUniqueTags: 0   #Only for Docker repositories. Specifies the maximum number of unique snapshots of the same artifact that should be stored. Once this number is reached and a new snapshot is uploaded, the oldest stored snapshot is removed.
+    enableTokenAuthentication: true   #Optional: Enables token-based authentication for Docker repositories
+    xrayIndex: false   #Optional: Specifies if the repository should be indexed by JFrog Xray
+    propertySets: []   #Optional: Property sets to associate with this repository
+    archiveBrowsingEnabled: false   #Optional: Enables archive browsing for this repository
+...

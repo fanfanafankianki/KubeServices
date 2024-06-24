@@ -1,0 +1,44 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
+kind: HelmRelease
+metadata:
+  name: angular-nginx-custom
+  namespace: staging
+spec:
+  interval: 1m
+  chart:
+    spec:
+      chart: ./HelmCharts/angular_nginx_prod
+      sourceRef:
+        kind: GitRepository
+        name: flux-system
+        namespace: flux-system
+  values:
+    image:
+      repository: fanfanafankianki/website-angular-app
+      tag: latest
+      registry: docker.io
+      pullPolicy: Always
+    command: []
+    service:
+      type: NodePort
+      ports:
+        http: 80
+        https: 443
+    containerSecurityContext:
+      enabled: true
+      runAsUser: 0
+      runAsNonRoot: false
+      privileged: true
+      readOnlyRootFilesystem: false
+      allowPrivilegeEscalation: true
+    extraVolumes:
+    - name: angular-nginx-custom-nginx-conf
+      configMap:
+        name: angular-nginx-custom-nginx-conf
+    extraVolumeMounts:
+    - name: angular-nginx-custom-nginx-conf
+      mountPath: /opt/bitnami/nginx/conf/nginx.conf
+      subPath: nginx.conf
+      readOnly: true
+    metrics:
+      enabled: true

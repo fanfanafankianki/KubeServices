@@ -1,0 +1,9 @@
+dependencies:
+- name: jenkins
+  repository: file://charts/jenkins
+  version: 5.0.14
+- name: prometheus-operator-crds
+  repository: https://prometheus-community.github.io/helm-charts
+  version: 11.0.0
+digest: sha256:f5f6b374414a3b481f3ec9797c1bdaffd53086b3ff9457c61719ae3821ef74f1
+generated: "2024-05-21T10:08:30.112202407Z"

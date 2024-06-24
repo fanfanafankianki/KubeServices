@@ -1,0 +1,7 @@
+grafana:
+  persistentVolume:
+    enabled: false
+    existingClaim: "test-claim"
+  service:
+    type: NodePort
+    nodePort: 31001

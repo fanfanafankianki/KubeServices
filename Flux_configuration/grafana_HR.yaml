@@ -1,0 +1,63 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
+kind: HelmRelease
+metadata:
+  name: grafana-custom
+  namespace: staging
+spec:
+  interval: 1m
+  chart:
+    spec:
+      chart: ./HelmCharts/grafana_prod
+      sourceRef:
+        kind: GitRepository
+        name: flux-system
+        namespace: flux-system
+  values:
+    grafana:
+      persistentVolume:
+        enabled: true
+      adminUser: admin
+      adminPassword: admin
+      dashboards:
+        default:
+          postgre-dashboard:
+            file: dashboards/postgresql_dashboard.json
+          kubernetes_dashboard:
+            file: dashboards/kubernetes_dashboard.json
+          nginx_dashboard:
+            file: dashboards/nginx_dashboard.json
+          prometheus_dashboard:
+            file: dashboards/prometheus_dashboard.json
+          jenkins_dashboard:
+            file: dashboards/jenkins_dashboard.json
+          sonarqube_dashboard:
+            file: dashboards/sonarqube_dashboard.json
+          memcached_dashboard:
+            file: dashboards/memcached_dashboard.json
+          rabbitmq_dashboard:
+            file: dashboards/rabbitmq_dashboard.json
+      dashboardProviders:
+        dashboardproviders.yaml:
+          apiVersion: 1
+          providers:
+          - name: 'default'
+            orgId: 1
+            folder: ''
+            type: file
+            disableDeletion: false
+            editable: true
+            options:
+              path: /var/lib/grafana/dashboards/default
+      datasources:
+        datasources.yaml:
+          apiVersion: 1
+          datasources:
+            - name: Prometheus
+              type: prometheus
+              url: "http://prometheus.trainingnotes.fit"
+      persistence:
+        enabled: true
+        existingClaim: "grafana-claim"
+      service:
+        type: NodePort
+        nodePort: 30006

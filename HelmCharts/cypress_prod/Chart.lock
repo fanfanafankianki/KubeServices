@@ -1,0 +1,9 @@
+dependencies:
+- name: minio
+  repository: https://helm.min.io/
+  version: 8.0.9
+- name: mongodb
+  repository: https://raw.githubusercontent.com/bitnami/charts/pre-2022/bitnami
+  version: 10.19.0
+digest: sha256:c093b01d2426ae1c4f563440cc79eb15c2b40fcb3794b04b2e4dfee304e1bfb0
+generated: "2023-11-13T18:10:28.739675476Z"

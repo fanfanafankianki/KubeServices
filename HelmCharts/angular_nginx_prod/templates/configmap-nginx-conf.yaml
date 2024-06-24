@@ -1,0 +1,11 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  labels:
+    app: angular-nginx
+  name: {{ .Release.Name }}-nginx-conf
+  namespace: {{ include "common.names.namespace" . | quote }}
+data:
+  nginx.conf: |
+{{ tpl (.Files.Get "configs/nginx.conf") . | indent 4 }}

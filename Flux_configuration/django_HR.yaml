@@ -1,0 +1,44 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
+kind: HelmRelease
+metadata:
+  name: django-nginx-custom
+  namespace: staging
+spec:
+  interval: 1m
+  chart:
+    spec:
+      chart: ./HelmCharts/django_nginx_prod
+      sourceRef:
+        kind: GitRepository
+        name: flux-system
+        namespace: flux-system
+  values:
+    image:
+      repository: fanfanafankianki/website-django-app
+      tag: latest
+      registry: docker.io
+      pullPolicy: Always
+    command: ["/bin/sh", "-c", "nginx && nginx -s reload && gunicorn --bind 0.0.0.0:8000 GymWebsite.wsgi:application"]
+    service:
+      type: NodePort
+      ports:
+        http: 80
+        https: 443
+    containerSecurityContext:
+      enabled: true
+      runAsUser: 0
+      runAsNonRoot: false
+      privileged: true
+      readOnlyRootFilesystem: false
+      allowPrivilegeEscalation: true
+    extraVolumes:
+    - name: django-nginx-custom-nginx-conf
+      configMap:
+        name: django-nginx-custom-nginx-conf
+    extraVolumeMounts:
+    - name: django-nginx-custom-nginx-conf
+      mountPath: /opt/bitnami/nginx/conf/nginx.conf
+      subPath: nginx.conf
+      readOnly: true
+    metrics:
+      enabled: true

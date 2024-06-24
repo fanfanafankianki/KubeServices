@@ -1,0 +1,495 @@
+# Default values for sorry-cypress-helm.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+# If you don't want to use the default release name, change it here.
+# fullnameOverride: "sorry-cypress"
+
+api:
+  image:
+    repository: agoldis/sorry-cypress-api
+    pullPolicy: Always
+    # Overrides the image tag whose default is the chart appVersion.
+    # tag: "latest"
+
+  replicas: 1
+
+  # If you have no need for the API service, you can set this to false to exclude it.
+  # Note, you must set up mongodb in order to use the API.
+  enabled: true
+
+  resources:
+    {}
+    # We usually recommend not to specify default resources and to leave this as a conscious
+    # choice for the user. This also increases chances charts run on environments with little
+    # resources, such as Minikube. If you do want to specify resources, uncomment the following
+    # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+    # limits:
+    #   cpu: 100m
+    #   memory: 128Mi
+    # requests:
+    #   cpu: 100m
+    #   memory: 128Mi
+
+  securityContext: {}
+
+  nodeSelector: {}
+
+  tolerations: []
+
+  # Hard node and soft zone anti-affinity
+  affinity: |
+    podAntiAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        - labelSelector:
+            matchLabels:
+              app: {{ include "sorry-cypress-helm.fullname" . }}-api
+          topologyKey: kubernetes.io/hostname
+      preferredDuringSchedulingIgnoredDuringExecution:
+        - weight: 100
+          podAffinityTerm:
+            labelSelector:
+              matchLabels:
+                app: {{ include "sorry-cypress-helm.fullname" . }}-api
+            topologyKey: topology.kubernetes.io/zone
+
+  # You can define any init container(s) here.
+  # This example checks that mongodb is running before allowing the api pod to start.
+  # If you wish to do this, you will need to modify your RBAC settings (not included in this Helm chart)
+  initContainers: []
+  # - name: waitformongo
+  #   image: groundnuty/k8s-wait-for
+  #   args:
+  #     - "pod"
+  #     - "-lapp.kubernetes.io/name=mongodb"
+
+  service:
+    port: 4000
+
+    # Defaults to "ClusterIP"
+    type: NodePort
+
+    ## Only valid if service.type equals "NodePort"
+    nodePort: 30700
+
+  readinessProbe:
+    periodSeconds: 5
+    timeoutSeconds: 3
+    successThreshold: 2
+    failureThreshold: 5
+
+  # Set annotations for pods
+  podAnnotations: {}
+
+  # Name of the existing priority class to be used by pod(s)
+  priorityClassName: ""
+
+  # Additional pod labels
+  podLabels: {}
+
+  # https://docs.sorry-cypress.dev/configuration/api-configuration
+  # Enable/Disable apollo playground landing page
+  enableApolloPlayground: true
+
+  # set PAGE_ITEMS_LIMIT
+  pageItemsLimit: 10
+
+  ingress:
+    ingressClassName: nginx
+    labels: {}
+    annotations:
+      {}
+      # kubernetes.io/tls-acme: "true"
+    hosts: []
+    tls: []
+    #  - secretName: chart-example-tls
+    #    hosts:
+    #      - chart-example.local
+
+  extraEnv: []
+    # - name: ENV_NAME
+    #   value: ENV_VALUE
+
+dashboard:
+  image:
+    repository: agoldis/sorry-cypress-dashboard
+    pullPolicy: Always
+    # Overrides the image tag whose default is the chart appVersion.
+    # tag: "latest"
+
+  replicas: 1
+
+  # If you have no need for the Dashboard service, you can set this to false to exclude it.
+  enabled: true
+
+  resources:
+    {}
+    # We usually recommend not to specify default resources and to leave this as a conscious
+    # choice for the user. This also increases chances charts run on environments with little
+    # resources, such as Minikube. If you do want to specify resources, uncomment the following
+    # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+    # limits:
+    #   cpu: 100m
+    #   memory: 128Mi
+    # requests:
+    #   cpu: 100m
+    #   memory: 128Mi
+
+  securityContext: {}
+
+  nodeSelector: {}
+
+  tolerations: []
+
+  # Hard node and soft zone anti-affinity
+  affinity: |
+    podAntiAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        - labelSelector:
+            matchLabels:
+              app: {{ include "sorry-cypress-helm.fullname" . }}-dashboard
+          topologyKey: kubernetes.io/hostname
+      preferredDuringSchedulingIgnoredDuringExecution:
+        - weight: 100
+          podAffinityTerm:
+            labelSelector:
+              matchLabels:
+                app: {{ include "sorry-cypress-helm.fullname" . }}-dashboard
+            topologyKey: topology.kubernetes.io/zone
+
+  initContainers: []
+
+  # https://docs.sorry-cypress.dev/configuration/dashboard-configuration/configuration
+  environmentVariables:
+    graphQlClientCredentials: ""
+    graphQlSchemaUrl: "https://cypressapi.trainingnotes.fit/cypress-api"
+    ciUrl: ""
+
+  service:
+    port: 8080
+
+    # Defaults to "ClusterIP"
+    type: NodePort
+
+    ## Only valid if service.type equals "NodePort"
+    nodePort: 30710
+
+  # Set annotations for pods
+  podAnnotations: {}
+
+  # Name of the existing priority class to be used by pod(s)
+  priorityClassName: ""
+
+  # Additional pod labels
+  podLabels: {}
+
+  ingress:
+    enabled: false
+    ingressClassName: nginx
+    labels: {}
+    annotations:
+      {}
+      # kubernetes.io/tls-acme: "true"
+    hosts:
+      - host: dashboard.chart-example.local
+        path: /
+    tls: []
+    #  - secretName: chart-example-tls
+    #    hosts:
+    #      - chart-example.local
+  extraEnv: []
+    # - name: ENV_NAME
+    #   value: ENV_VALUE
+
+director:
+  serviceAccount:
+    name: ~
+    create: false
+    annotations: []
+    # Alternative aws-sdk authentication via IAM Roles for AWS EKS Service Accounts
+    # https://docs.aws.amazon.com/eks/latest/userguide/iam-roles-for-service-accounts.html
+    #  eks.amazonaws.com/role-arn: arn:aws:iam::<ACCOUNT_ID>:role/<IAM_ROLE_NAME>
+
+  image:
+    repository: agoldis/sorry-cypress-director
+    pullPolicy: Always
+    # Overrides the image tag whose default is the chart appVersion.
+    # tag: "latest"
+
+  replicas: 1
+
+  resources:
+    {}
+    # We usually recommend not to specify default resources and to leave this as a conscious
+    # choice for the user. This also increases chances charts run on environments with little
+    # resources, such as Minikube. If you do want to specify resources, uncomment the following
+    # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+    # limits:
+    #   cpu: 100m
+    #   memory: 128Mi
+    # requests:
+    #   cpu: 100m
+    #   memory: 128Mi
+
+  securityContext: {}
+
+  readinessProbe:
+    periodSeconds: 5
+    timeoutSeconds: 3
+    successThreshold: 2
+    failureThreshold: 5
+
+  nodeSelector: {}
+
+  tolerations: []
+
+  # Hard node and soft zone anti-affinity
+  affinity: |
+    podAntiAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        - labelSelector:
+            matchLabels:
+              app: {{ include "sorry-cypress-helm.fullname" . }}-director
+          topologyKey: kubernetes.io/hostname
+      preferredDuringSchedulingIgnoredDuringExecution:
+        - weight: 100
+          podAffinityTerm:
+            labelSelector:
+              matchLabels:
+                app: {{ include "sorry-cypress-helm.fullname" . }}-director
+            topologyKey: topology.kubernetes.io/zone
+
+  # You can define any init container(s) here.
+  # This example checks that mongodb is running before allowing the api pod to start.
+  # If you wish to do this, you will need to modify your RBAC settings (not included in this Helm chart)
+  initContainers: []
+  # - name: waitformongo
+  #   image: groundnuty/k8s-wait-for
+  #   args:
+  #     - "pod"
+  #     - "-lapp.kubernetes.io/name=mongodb"
+
+  # Optionally provide record keys from an already existing Kubernetes secret
+  allowedKeysEnableCustomSecret: false
+  # allowedKeysSecretName: allowed-keys-secret
+
+  environmentVariables:
+    # The "Run URL" in the Cypress client
+    dashboardUrl: "https://cypress.trainingnotes.fit"
+
+    # In memory, or Mongo.
+    # Valid options are:
+    # "../execution/in-memory"
+    # "../execution/mongo/driver"
+    executionDriver: "../execution/mongo/driver"
+
+    # Dummy or S3
+    # Valid options are:
+    # "../screenshots/dummy.driver"
+    # "../screenshots/s3.driver"
+    screenshotsDriver: "../screenshots/minio.driver"
+
+    # https://docs.sorry-cypress.dev/configuration/director-configuration
+    allowedKeys: ""
+
+    # Test runs timeouts
+    inactivityTimeoutSeconds: ""
+
+    # Enable gitlab job retries
+    gitlabJobRetries: false
+
+    # BASE_PATH serving path, usefull when using reverse proxy ex: /cypress/dashboard
+    basePath: ""
+
+  # Set annotations for pods
+  podAnnotations: {}
+
+  # Additional pod labels
+  podLabels: {}
+
+  service:
+    port: 1234
+
+    # Defaults to "ClusterIP"
+    type: NodePort
+
+    ## Only valid if service.type equals "NodePort"
+    nodePort: 30720
+
+  ingress:
+    enabled: false
+    ingressClassName: nginx
+    labels: {}
+    annotations:
+      {}
+      # kubernetes.io/tls-acme: "true"
+    hosts:
+      - host: director.chart-example.local
+        path: /
+    tls: []
+    #  - secretName: chart-example-tls
+    #    hosts:
+    #      - chart-example.local
+
+  extraEnv: []
+    # - name: ENV_NAME
+    #   value: ENV_VALUE
+
+mongodb:
+  replicaCount: 1
+  # You need to ensure that director.environmentVariables.executionDriver is set to "../execution/mongo/driver" if you want the director to use mongodb.
+  mongoConnectionString: "mongodb://sorry-cypress-mongodb-0:27017"
+
+  # One of the following two options must be enabled in order to securely use connection strings
+  # that may contain sensitive information. Use either enableSecret or enableCustomSecret, not both.
+  mongoSecretConnectionString:
+    enableSecret: false
+    enableCustomSecret: false
+
+  # One of the following two options must be enabled in order for the Sorry Cypress API to work.
+  # Set this to "true" if you wish to use your own external mongodb.
+  external_db:
+    enabled: false
+    mongoServer: ""
+
+  # Set this to "true" if you want this chart to deploy mongodb for you.
+  internal_db:
+    enabled: true
+
+  mongoDatabase: "sorry-cypress"
+
+  certificate:
+    enabled: false
+    name: "db-cert"
+    configMapName: "sorry-cypress-db-cert"
+
+  # If enabled, you can use any values from the mongodb helm chart: https://github.com/bitnami/charts/blob/master/bitnami/mongodb/values.yaml
+  # Below are the bare minimim to get you started.
+  architecture: replicaset
+  auth:
+    enabled: false
+
+  resources:
+    limits: {}
+    #   cpu: 100m
+    #   memory: 128Mi
+    requests:
+      cpu: 25m
+      memory: 90Mi
+
+  persistence:
+    enabled: false
+    size: 1Gi
+
+  externalAccess:
+    enabled: true
+    service:
+      type: ClusterIP
+
+s3:
+  bucketName: insteadofminio
+  region: eu-north-1
+  accessKeyId: "wpisztucredsydlas3"
+  secretAccessKey: "tutez"
+  acl: "public-read"
+  readUrlPrefix: ""
+  videoKeyPrefix: ""
+  imageKeyPrefix: ""
+
+  ingress:
+    # When enabling ingress, an ExternalName service will be also created to expose the bucket.
+    enabled: false
+    ingressClassName: nginx
+    labels: {}
+    annotations:
+      {}
+      # kubernetes.io/tls-acme: "true"
+      # nginx.ingress.kubernetes.io/upstream-vhost: <bucket>.s3-website-<region>.amazonaws.com
+      # nginx.ingress.kubernetes.io/enable-cors: "true"
+      # nginx.ingress.kubernetes.io/cors-allow-origin: "*"
+      # nginx.ingress.kubernetes.io/cors-allow-methods: "POST, GET, PUT, DELETE, HEAD"
+    hosts:
+      - host: static.chart-example.local
+        path: /
+    tls: []
+    #  - secretName: chart-example-tls
+    #    hosts:
+    #      - chart-example.local
+
+minio:
+#  service:
+#    port: 80
+  enabled: true
+  accessKey: "tik"
+  secretKey: "12345678"
+  resources:
+    requests:
+      memory: 1Gi
+  # If enabled, you can include any values from the minio helm chart: https://github.com/minio/charts/blob/master/minio/values.yaml
+  # Below are the bare minimim to get you started.
+
+  # Ref: https://docs.sorry-cypress.dev/configuration/director-configuration/minio-configuration
+  endpoint: minio.trainingnotes.fit
+  url: https://minio.trainingnotes.fit
+  readUrlPrefix: ""
+
+  defaultBucket:
+    enabled: true
+    name: sorry-cypress
+
+    ## Can be one of none|download|upload|public
+    policy: public
+
+  persistence:
+    enabled: false
+    size: 10Gi
+
+azureBlobStorage:
+  containerName: sorry-cypress
+  uploadUrlExpiryInHours: 24
+  existingSecret: ""
+  fullnameOverride: ""
+
+runCleaner:
+  # Optionally integrate the Sorry Cypress Run Cleaner to remove old runs from the database.
+  # You will need to set up your S3/Minio lifecycle management to delete objects from your bucket.
+  # https://github.com/sendible-labs/sorry-cypress-run-cleaner
+  enabled: false
+  image:
+    repository: "ghcr.io/sendible-labs/sorry-cypress-run-cleaner"
+    tag: "stable"
+  # Keep the last 200 days worth of runs.
+  daysToKeep: 200
+  # Run every morning at 1am by default.
+  schedule: "0 1 * * *"
+  # Cluster domain to resolve api host correctly
+  clusterDomain: "cluster.local"
+
+  # Name of the existing priority class to be used by pod(s)
+  priorityClassName: ""
+
+  tolerations: []
+
+  resources:
+    {}
+    # We usually recommend not to specify default resources and to leave this as a conscious
+    # choice for the user. This also increases chances charts run on environments with little
+    # resources, such as Minikube. If you do want to specify resources, uncomment the following
+    # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+    # limits:
+    #   cpu: 100m
+    #   memory: 128Mi
+    # requests:
+    #   cpu: 100m
+    #   memory: 128Mi
+
+  podAnnotations: {}
+
+  podLabels: {}
+
+  securityContext: {}
+
+imagePullSecrets: []
+# An optional array of imagePullSecrets that are used to download images from a private registry
+# https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
+# - name: <secret-name>

@@ -1,0 +1,10 @@
+jenkins:
+  agent:
+    namespace: staging
+  controller:
+    serviceType: NodePort
+    nodePort: 32001
+
+  persistence:
+    enabled: false
+    existingClaim: test-claim

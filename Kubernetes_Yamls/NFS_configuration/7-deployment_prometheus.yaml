@@ -27,11 +27,11 @@ spec:
         - name: PROVISIONER_NAME
           value: efs-storage
         - name: NFS_SERVER
-          value: 10.0.1.145
+          value: ${EFS_ID}
         - name: NFS_PATH
           value: /
       volumes:
       - name: nfs-client-root
         nfs:
-          server: 10.0.1.145
+          server: ${EFS_ID}
           path: /

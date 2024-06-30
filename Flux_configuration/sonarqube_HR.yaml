@@ -40,3 +40,11 @@ spec:
     service:
       type: NodePort
       nodePort: 30011
+    sonarqube:
+      resources:
+        limits:
+          cpu: 400m
+          memory: 512Mi
+        requests:
+          cpu: 400m
+          memory: 512Mi

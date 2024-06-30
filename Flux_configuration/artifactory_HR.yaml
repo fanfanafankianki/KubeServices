@@ -12,3 +12,12 @@ spec:
         kind: GitRepository
         name: flux-system
         namespace: flux-system
+  values:
+    artifactory:
+      resources:
+        limits:
+          cpu: 500m
+          memory: 1Gi
+        requests:
+          cpu: 500m
+          memory: 1Gi

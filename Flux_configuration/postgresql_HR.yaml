@@ -16,10 +16,10 @@ spec:
     postgresql:
       primary:
         resources:
-          limits:
+          requests:
             cpu: 500m
             memory: 1Gi
-          requests:
+          limits:
             cpu: 500m
             memory: 1Gi
         persistence:

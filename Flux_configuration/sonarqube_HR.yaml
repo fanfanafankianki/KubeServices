@@ -36,8 +36,8 @@ spec:
     sonarqube:
       resources:
         limits:
-          cpu: 500m
+          cpu: 400m
           memory: 1Gi
         requests:
-          cpu: 500m
+          cpu: 400m
           memory: 1Gi

@@ -30,10 +30,10 @@ spec:
         nodePort: 30007
         resources:
           requests:
-            cpu: "1000m"
+            cpu: "800m"
             memory: "2Gi"
           limits:
-            cpu: "1000m"
+            cpu: "800m"
             memory: "2Gi"
         agentListenerNodePort: 31113
         agentListenerServiceType: "NodePort"

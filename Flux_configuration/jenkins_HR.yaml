@@ -31,10 +31,10 @@ spec:
         resources:
           requests:
             cpu: "1000m"
-            memory: "2048Mi"
+            memory: "2Gi"
           limits:
             cpu: "1000m"
-            memory: "2048Mi"
+            memory: "2Gi"
         agentListenerNodePort: 31113
         agentListenerServiceType: "NodePort"
         agentListenerPort: 31114

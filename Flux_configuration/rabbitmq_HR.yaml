@@ -16,11 +16,11 @@ spec:
     rabbitmq:
       resources:
         limits:
-          cpu: 300m
-          memory: 512Mi
+          cpu: 500m
+          memory: 1Gi
         requests:
-          cpu: 300m
-          memory: 512Mi
+          cpu: 500m
+          memory: 1Gi
       persistence:
         enabled: false
       service:

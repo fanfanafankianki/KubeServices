@@ -15,12 +15,12 @@ spec:
   values:
     memcached:
       resources:
-        limits:
-          cpu: 200m
-          memory: 256Mi
         requests:
-          cpu: 200m
-          memory: 256Mi
+          cpu: 500m
+          memory: 512Mi
+        limits:
+          cpu: 500m
+          memory: 512Mi
       service:
         type: NodePort
         memcached: "31012"

@@ -13,6 +13,13 @@ spec:
         name: flux-system
         namespace: flux-system
   values:
+    resources:
+      limits:
+        cpu: 200m
+        memory: 256Mi
+      requests:
+        cpu: 200m
+        memory: 256Mi
     image:
       repository: fanfanafankianki/website-angular-app
       tag: latest
@@ -42,10 +49,3 @@ spec:
       readOnly: true
     metrics:
       enabled: true
-    resources:
-      limits:
-        cpu: 200m
-        memory: 256Mi
-      requests:
-        cpu: 200m
-        memory: 256Mi

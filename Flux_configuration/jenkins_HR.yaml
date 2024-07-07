@@ -28,6 +28,13 @@ spec:
             {{ (.Files.Get "init_scripts/init.groovy") | indent 4 }}
         serviceType: NodePort
         nodePort: 30007
+        resources:
+          requests:
+            cpu: "1000m"
+            memory: "2048Mi"
+          limits:
+            cpu: "1000m"
+            memory: "2048Mi"
         agentListenerNodePort: 31113
         agentListenerServiceType: "NodePort"
         agentListenerPort: 31114

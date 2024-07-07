@@ -14,9 +14,40 @@ spec:
         namespace: flux-system
   values:
     prometheus:
+      kube-state-metrics:
+        resources:
+          limits:
+            cpu: 100m
+            memory: 64Mi
+          requests:
+            cpu: 100m
+            memory: 64Mi
+      prometheus-node-exporter:
+        resources:
+          limits:
+            cpu: 200m
+            memory: 64Mi
+          requests:
+            cpu: 200m
+            memory: 64Mi
+      prometheus-pushgateway:
+        resources:
+          limits:
+            cpu: 200m
+            memory: 64Mi
+          requests:
+            cpu: 200m
+            memory: 64Mi
       alertmanager:
         enabled: false
       server:
+        resources:
+          limits:
+            cpu: 500m
+            memory: 512Mi
+          requests:
+            cpu: 500m
+            memory: 512Mi
         persistentVolume:
           existingClaim: "prometheus-claim"
         service:

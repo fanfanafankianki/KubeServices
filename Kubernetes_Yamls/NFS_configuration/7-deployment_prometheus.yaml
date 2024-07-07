@@ -20,6 +20,13 @@ spec:
       containers:
       - name: nfs-client-provisioner
         image: eu.gcr.io/k8s-artifacts-prod/sig-storage/nfs-subdir-external-provisioner:v4.0.2
+        resources:
+          requests:
+            cpu: "100m"
+            memory: "128Mi"
+          limits:
+            cpu: "100m"
+            memory: "128Mi"
         volumeMounts:
         - name: nfs-client-root
           mountPath: /persistentvolumes

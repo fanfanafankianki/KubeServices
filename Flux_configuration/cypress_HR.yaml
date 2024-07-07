@@ -16,36 +16,43 @@ spec:
     api:
       resources:
         limits:
-          cpu: 500m
+          cpu: 250m
           memory: 512Mi
         requests:
-          cpu: 500m
+          cpu: 250m
           memory: 512Mi
     dashboard:
       resources:
         limits:
-          cpu: 500m
+          cpu: 250m
           memory: 512Mi
         requests:
-          cpu: 500m
+          cpu: 250m
           memory: 512Mi
     director:
       resources:
         limits:
-          cpu: 500m
+          cpu: 250m
           memory: 512Mi
         requests:
-          cpu: 500m
+          cpu: 250m
           memory: 512Mi
     minio:
       resources:
         limits:
-          cpu: 500m
+          cpu: 300m
           memory: 1Gi
         requests:
-          cpu: 500m
+          cpu: 300m
           memory: 1Gi
     mongodb:
+      resources:
+        limits:
+           cpu: 200m
+           memory: 256Mi
+        requests:
+           cpu: 200m
+           memory: 256Mi
       arbiter:
         resources:
           limits:

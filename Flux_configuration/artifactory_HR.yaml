@@ -14,11 +14,54 @@ spec:
         namespace: flux-system
   values:
     artifactory:
+      initContainers:
+        resources:
+          requests:
+            memory: "50Mi"
+            cpu: "10m"
+          limits:
+            memory: "50Mi"
+            cpu: "10m"
+      router:
+        requests:
+          memory: "100Mi"
+          cpu: "100m"
+        limits:
+          memory: "100Mi"
+          cpu: "100m"
+      frontend:
+        requests:
+          memory: "100Mi"
+          cpu: "100m"
+        limits:
+          memory: "100Mi"
+          cpu: "100m"
+      metadata:
+        requests:
+          memory: "100Mi"
+          cpu: "100m"
+        limits:
+          memory: "100Mi"
+          cpu: "100m"
+      event:
+        requests:
+          memory: "100Mi"
+          cpu: "100m"
+        limits:
+          memory: "100Mi"
+          cpu: "100m"
+      observability:
+        requests:
+          memory: "100Mi"
+          cpu: "100m"
+        limits:
+          memory: "100Mi"
+          cpu: "100m"
       artifactory:
         resources:
           limits:
-            memory: "1Gi"
-            cpu: "500m"
+            memory: "500Mi"
+            cpu: "200m"
           requests:
-            memory: "1Gi"
-            cpu: "500m"
+            memory: "500Mi"
+            cpu: "200m"

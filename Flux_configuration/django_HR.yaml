@@ -15,11 +15,11 @@ spec:
   values:
     resources:
       limits:
-        cpu: 350m
-        memory: 600Mi
+        cpu: 300m
+        memory: 400Mi
       requests:
-        cpu: 350m
-        memory: 600Mi
+        cpu: 300m
+        memory: 400Mi
     image:
       repository: fanfanafankianki/website-django-app
       tag: latest

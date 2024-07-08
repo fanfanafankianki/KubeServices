@@ -16,11 +16,11 @@ spec:
     pgadmin4:
       resources:
         limits:
-          cpu: 400m
-          memory: 512Mi
+          cpu: 250m
+          memory: 400Mi
         requests:
-          cpu: 400m
-          memory: 512Mi
+          cpu: 250m
+          memory: 400Mi
       persistence:
         enabled: false
       service:

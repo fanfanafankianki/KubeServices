@@ -18,6 +18,7 @@ spec:
         enabled: true
         existingClaim: "jenkins-claim"
       controller:
+        healthProbes: false
         JCasC:
           defaultConfig: false
           configScripts:

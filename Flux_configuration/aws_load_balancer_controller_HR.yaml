@@ -1,0 +1,29 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
+kind: HelmRelease
+metadata:
+  name: aws-load-balancer-controller-custom
+  namespace: kube-system
+spec:
+  interval: 1m
+  chart:
+    spec:
+      chart: ./HelmCharts/aws_load_balancer_controller_prod
+      sourceRef:
+        kind: GitRepository
+        name: flux-system
+        namespace: flux-system
+  values:
+    region: eu-north-1
+    vpcId: ${VPC_ID}
+    clusterName: kubernetes
+    serviceAccount:
+      create: true
+      annotations:
+        eks.amazonaws.com/role-arn: ${TERRAFORM_ROLE_ARN}
+    resources:
+      limits:
+        cpu: 100m
+        memory: 128Mi
+      requests:
+        cpu: 100m
+        memory: 128Mi

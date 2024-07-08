@@ -14,7 +14,6 @@ spec:
         namespace: flux-system
   values:
     region: eu-north-1
-    vpcId: ${VPC_ID}
     clusterName: kubernetes
     serviceAccount:
       create: true

@@ -72,4 +72,4 @@ pipeline {
 }
 
 // Uruchamianie joba pipeline
-jenkins.queue.schedule2(job, 0, new CauseAction(new Cause.UserIdCause()))
+jenkins.queue.schedule2(job, 60, new CauseAction(new Cause.UserIdCause()))

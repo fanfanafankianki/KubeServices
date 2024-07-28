@@ -46,7 +46,7 @@ pipeline {
             steps {
                 script {
                     // Znajdowanie plików DSL w bieżącym folderze
-                    def dslScripts = sh(script: "find . -name '*.groovy'", returnStdout: true).trim().split('\\n')
+                    def dslScripts = sh(script: "find ./Jenkins_jobs -name '*.groovy'", returnStdout: true).trim().split('\\n')
 
                     // Wypisanie ścieżek do znalezionych skryptów DSL
                     echo "Znalezione skrypty DSL: ${dslScripts.join(', ')}"

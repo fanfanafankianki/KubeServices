@@ -16,6 +16,7 @@ spec:
     artifactory:
       global:
         masterKey: "cefa6aa6c381a4bebbdfbd2e0c9cb51eebbee172266a0e4d04889cd5c0416c77"
+        joinKey: EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
       initContainers:
         resources:
           requests:

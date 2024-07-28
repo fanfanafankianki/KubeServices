@@ -70,6 +70,3 @@ pipeline {
     job.setDefinition(flowDefinition)
     jenkins.reload()
 }
-
-// Uruchamianie joba pipeline
-jenkins.queue.schedule2(job, 60, new CauseAction(new Cause.UserIdCause()))

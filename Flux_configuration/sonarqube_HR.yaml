@@ -17,9 +17,9 @@ spec:
       podMonitor:
         enabled: true
     startupProbe:
-      initialDelaySeconds: 450
+      initialDelaySeconds: 600
     livenessProbe:
-      initialDelaySeconds: 450
+      initialDelaySeconds: 600
     postgresql:
       enabled: false
       persistence:

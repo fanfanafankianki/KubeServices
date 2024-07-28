@@ -16,7 +16,7 @@ spec:
     artifactory:
       global:
         masterKey: "cefa6aa6c381a4bebbdfbd2e0c9cb51eebbee172266a0e4d04889cd5c0416c77"
-        joinKey: EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
+        joinKey: "CZHMme5rtpRm8yGMbUO1VHkxmhYkXfDLBQ54x9kneBQ="
       initContainers:
         resources:
           requests:
@@ -61,7 +61,6 @@ spec:
           memory: "100Mi"
           cpu: "100m"
       artifactory:
-        joinKey: EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
         resources:
           limits:
             memory: "1Gi"

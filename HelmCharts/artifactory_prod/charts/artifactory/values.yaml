@@ -228,7 +228,7 @@ router:
     # From Artifactory versions 7.52.x, Wait for Artifactory to complete any open uploads or downloads before terminating
     preStop:
       exec:
-        command: ["sh", "-c", "while [[ $(curl --fail --silent --connect-timeout 2 http://localhost:8081/artifactory/api/v1/system/liveness) =~ OK ]]; do echo Artifactory is still alive; sleep 2; done"]
+        command: ["sh", "-c", "while [[ $(curl --fail --silent --connect-timeout 4 http://localhost:8081/artifactory/api/v1/system/liveness) =~ OK ]]; do echo Artifactory is still alive; sleep 2; done"]
         # postStart:
         #   exec:
         #     command: ["/bin/sh", "-c", "echo Hello from the postStart handler"]
@@ -1831,4 +1831,4 @@ hostAliases: []
 splitServicesToContainers: true
 ## Specify common probes parameters
 probes:
-  timeoutSeconds: 5
+  timeoutSeconds: 30
